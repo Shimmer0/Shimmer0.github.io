@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Welcome to My Secret Garden 🌟</title>
+
+  <style>
+    /* ===== 全局重置与基础样式 ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Courier New', monospace;
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a0033 50%, #0a0a0a 100%);
+      color: #00ffff;
+      overflow-x: hidden;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* ===== 粒子背景效果 ===== */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .particle {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: #00ffff;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
+      animation: float 15s infinite;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      90% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh) rotate(720deg);
+        opacity: 0;
+      }
+    }
+
+    /* ===== 网格背景 ===== */
+    .grid-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image:
+        linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+      background-size: 50px 50px;
+      animation: grid-move 20s linear infinite;
+      z-index: 1;
+    }
+
+    @keyframes grid-move {
+      0% {
+        transform: perspective(500px) rotateX(60deg) translateY(0);
+      }
+      100% {
+        transform: perspective(500px) rotateX(60deg) translateY(50px);
+      }
+    }
+
+    /* ===== 主容器 ===== */
+    .container {
+      position: relative;
+      z-index: 10;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 50px 20px;
+      min-height: 100vh;
+    }
+
+    /* ===== 标题样式 - 霓虹效果 ===== */
+    .glitch-title {
+      font-size: 4em;
+      text-align: center;
+      margin-bottom: 50px;
+      position: relative;
+      animation: glitch 2s infinite;
+      text-shadow:
+        0 0 10px #00ffff,
+        0 0 20px #00ffff,
+        0 0 40px #00ffff,
+        0 0 80px #00ffff;
+    }
+
+    @keyframes glitch {
+      0%, 90%, 100% {
+        transform: translate(0);
+      }
+      92% {
+        transform: translate(-2px, 2px);
+        text-shadow:
+          0 0 10px #ff00ff,
+          0 0 20px #ff00ff,
+          0 0 40px #ff00ff;
+      }
+      94% {
+        transform: translate(2px, -2px);
+        text-shadow:
+          0 0 10px #00ff00,
+          0 0 20px #00ff00,
+          0 0 40px #00ff00;
+      }
+      96% {
+        transform: translate(-2px, -2px);
+      }
+      98% {
+        transform: translate(2px, 2px);
+      }
+    }
+
+    /* ===== 副标题 ===== */
+    .subtitle {
+      text-align: center;
+      font-size: 1.5em;
+      margin-bottom: 60px;
+      color: #ff00ff;
+      text-shadow: 0 0 10px #ff00ff;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.6;
+      }
+    }
+
+    /* ===== 内容卡片 ===== */
+    .card {
+      background: rgba(20, 0, 40, 0.8);
+      border: 2px solid #00ffff;
+      border-radius: 10px;
+      padding: 30px;
+      margin-bottom: 40px;
+      box-shadow:
+        0 0 20px rgba(0, 255, 255, 0.3),
+        inset 0 0 20px rgba(0, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow:
+        0 0 40px rgba(0, 255, 255, 0.6),
+        inset 0 0 40px rgba(0, 255, 255, 0.2);
+      border-color: #ff00ff;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        45deg,
+        transparent,
+        rgba(0, 255, 255, 0.1),
+        transparent
+      );
+      transform: rotate(45deg);
+      animation: shine 3s infinite;
+    }
+
+    @keyframes shine {
+      0% {
+        transform: translateX(-100%) rotate(45deg);
+      }
+      100% {
+        transform: translateX(100%) rotate(45deg);
+      }
+    }
+
+    /* ===== 卡片标题 ===== */
+    .card h2 {
+      font-size: 2em;
+      margin-bottom: 20px;
+      color: #ff00ff;
+      text-shadow: 0 0 10px #ff00ff;
+      border-bottom: 2px solid #ff00ff;
+      padding-bottom: 10px;
+    }
+
+    /* ===== 卡片内容 ===== */
+    .card p, .card li {
+      font-size: 1.1em;
+      line-height: 1.8;
+      color: #e0e0e0;
+      margin-bottom: 15px;
+    }
+
+    .card ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .card li::before {
+      content: '▸ ';
+      color: #00ffff;
+      font-weight: bold;
+      margin-right: 10px;
+    }
+
+    /* ===== 交互式按钮 ===== */
+    .cyber-button {
+      display: inline-block;
+      padding: 15px 30px;
+      background: transparent;
+      border: 2px solid #00ffff;
+      color: #00ffff;
+      font-size: 1.1em;
+      font-family: 'Courier New', monospace;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      margin: 10px;
+    }
+
+    .cyber-button:hover {
+      background: rgba(0, 255, 255, 0.2);
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
+      transform: translateY(-2px);
+    }
+
+    .cyber-button::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: left 0.5s;
+    }
+
+    .cyber-button:hover::after {
+      left: 100%;
+    }
+
+    /* ===== 技能进度条 ===== */
+    .skill-bar {
+      margin-bottom: 20px;
+    }
+
+    .skill-name {
+      display: block;
+      margin-bottom: 8px;
+      color: #ff00ff;
+      font-weight: bold;
+    }
+
+    .progress-container {
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 10px;
+      padding: 5px;
+      border: 1px solid #00ffff;
+    }
+
+    .progress-bar {
+      height: 20px;
+      background: linear-gradient(90deg, #00ffff, #ff00ff);
+      border-radius: 5px;
+      animation: progress 2s ease-out forwards;
+      box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+    }
+
+    @keyframes progress {
+      from {
+        width: 0%;
+      }
+    }
+
+    /* ===== 时间线 ===== */
+    .timeline {
+      position: relative;
+      padding-left: 30px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 2px;
+      height: 100%;
+      background: linear-gradient(180deg, #00ffff, #ff00ff, #00ffff);
+      box-shadow: 0 0 10px #00ffff;
+    }
+
+    .timeline-item {
+      margin-bottom: 30px;
+      position: relative;
+    }
+
+    .timeline-item::before {
+      content: '●';
+      position: absolute;
+      left: -34px;
+      color: #00ffff;
+      font-size: 20px;
+      text-shadow: 0 0 10px #00ffff;
+    }
+
+    /* ===== 打字机效果 ===== */
+    .typewriter {
+      overflow: hidden;
+      border-right: 2px solid #00ffff;
+      white-space: nowrap;
+      animation:
+        typing 3.5s steps(40, end),
+        blink-caret 0.75s step-end infinite;
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    @keyframes blink-caret {
+      from, to { border-color: transparent }
+      50% { border-color: #00ffff }
+    }
+
+    /* ===== 鼠标跟随效果 ===== */
+    .cursor-follower {
+      position: fixed;
+      width: 30px;
+      height: 30px;
+      border: 2px solid #ff00ff;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transition: all 0.1s ease;
+      box-shadow: 0 0 10px #ff00ff;
+    }
+
+    /* ===== 返回按钮 ===== */
+    .back-button {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 100;
+      padding: 10px 20px;
+      background: rgba(20, 0, 40, 0.8);
+      border: 2px solid #ff00ff;
+      color: #ff00ff;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+
+    .back-button:hover {
+      background: rgba(255, 0, 255, 0.2);
+      box-shadow: 0 0 20px rgba(255, 0, 255, 0.6);
+    }
+
+    /* ===== 响应式设计 ===== */
+    @media (max-width: 768px) {
+      .glitch-title {
+        font-size: 2em;
+      }
+
+      .subtitle {
+        font-size: 1em;
+      }
+
+      .card {
+        padding: 20px;
+      }
+    }
+
+    /* ===== 扫描线效果 ===== */
+    .scanline {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.1) 50%,
+        transparent 50%
+      );
+      background-size: 100% 4px;
+      pointer-events: none;
+      z-index: 9998;
+      opacity: 0.3;
+    }
+  </style>
+</head>
+<body>
+  <!-- 鼠标跟随效果 -->
+  <div class="cursor-follower" id="cursor"></div>
+
+  <!-- 扫描线效果 -->
+  <div class="scanline"></div>
+
+  <!-- 粒子背景 -->
+  <div class="particles" id="particles"></div>
+
+  <!-- 网格背景 -->
+  <div class="grid-bg"></div>
+
+  <!-- 返回按钮 -->
+  <a href="/" class="back-button">← Back to Reality</a>
+
+  <!-- 主内容 -->
+  <div class="container">
+    <h1 class="glitch-title">Welcome to My Secret Garden 🌟</h1>
+    <p class="subtitle typewriter">Where creativity meets technology...</p>
+
+    <!-- 关于我 -->
+    <div class="card">
+      <h2>👤 About Me</h2>
+      <p>Hello! 欢迎来到我的秘密花园！这里是我真正的个人空间。</p>
+      <p>在学术的严谨之外，我是一个热爱探索、创造和玩耍的人。</p>
+      <p>这个页面使用了赛博朋克风格设计，融合了霓虹灯效果、粒子动画和交互式元素。</p>
+    </div>
+
+    <!-- 我的兴趣 -->
+    <div class="card">
+      <h2>🎮 My Interests</h2>
+      <ul>
+        <li>编程与算法</li>
+        <li>游戏与动漫</li>
+        <li>音乐与艺术</li>
+        <li>科幻与未来科技</li>
+        <li>探索未知的领域</li>
+      </ul>
+    </div>
+
+    <!-- 技能展示 -->
+    <div class="card">
+      <h2>⚡ Skills & Powers</h2>
+
+      <div class="skill-bar">
+        <span class="skill-name">Python / Machine Learning</span>
+        <div class="progress-container">
+          <div class="progress-bar" style="width: 90%;"></div>
+        </div>
+      </div>
+
+      <div class="skill-bar">
+        <span class="skill-name">Web Development</span>
+        <div class="progress-container">
+          <div class="progress-bar" style="width: 85%;"></div>
+        </div>
+      </div>
+
+      <div class="skill-bar">
+        <span class="skill-name">Problem Solving</span>
+        <div class="progress-container">
+          <div class="progress-bar" style="width: 95%;"></div>
+        </div>
+      </div>
+
+      <div class="skill-bar">
+        <span class="skill-name">Creativity & Innovation</span>
+        <div class="progress-container">
+          <div class="progress-bar" style="width: 88%;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 时间线 -->
+    <div class="card">
+      <h2>🌟 My Journey</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <h3>2022 - Present</h3>
+          <p>Ph.D. Student @ Tsinghua University</p>
+          <p>Exploring the frontiers of research...</p>
+        </div>
+
+        <div class="timeline-item">
+          <h3>2020 - 2022</h3>
+          <p>Master's Degree</p>
+          <p>Building foundations...</p>
+        </div>
+
+        <div class="timeline-item">
+          <h3>2016 - 2020</h3>
+          <p>Undergraduate Journey</p>
+          <p>Where it all began...</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 互动区 -->
+    <div class="card" style="text-align: center;">
+      <h2>🚀 Interactive Zone</h2>
+      <p>探索更多酷炫的功能！</p>
+
+      <a href="#" class="cyber-button" onclick="changeTheme()">
+        🎨 Change Theme
+      </a>
+
+      <a href="#" class="cyber-button" onclick="toggleParticles()">
+        ✨ Toggle Particles
+      </a>
+
+      <a href="#" class="cyber-button" onclick="addGlitch()">
+        💥 Glitch Effect
+      </a>
+
+      <div id="message-box" style="margin-top: 30px; min-height: 50px;"></div>
+    </div>
+
+    <!-- 隐藏彩蛋 -->
+    <div class="card" style="opacity: 0.3; transition: opacity 0.5s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.3'">
+      <h2>🎭 Secret Message</h2>
+      <p>You found it! 这里藏着一个秘密...</p>
+      <p style="font-size: 0.9em; color: #999;">Hint: Try typing "hello" on your keyboard...</p>
+    </div>
+  </div>
+
+  <script>
+    // ===== 粒子系统 =====
+    const particlesContainer = document.getElementById('particles');
+
+    function createParticle() {
+      const particle = document.createElement('div');
+      particle.classList.add('particle');
+      particle.style.left = Math.random() * 100 + '%';
+      particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+      particle.style.animationDelay = Math.random() * 5 + 's';
+      particlesContainer.appendChild(particle);
+
+      setTimeout(() => {
+        particle.remove();
+      }, 15000);
+    }
+
+    // 初始化粒子
+    for (let i = 0; i < 30; i++) {
+      setTimeout(createParticle, i * 200);
+    }
+
+    // 持续创建新粒子
+    setInterval(createParticle, 1000);
+
+    // ===== 鼠标跟随效果 =====
+    const cursor = document.getElementById('cursor');
+
+    document.addEventListener('mousemove', (e) => {
+      cursor.style.left = e.clientX - 15 + 'px';
+      cursor.style.top = e.clientY - 15 + 'px';
+    });
+
+    // ===== 主题切换 =====
+    const themes = [
+      { primary: '#00ffff', secondary: '#ff00ff', name: 'Cyberpunk' },
+      { primary: '#00ff00', secondary: '#ffff00', name: 'Matrix' },
+      { primary: '#ff6b6b', secondary: '#4ecdc4', name: 'Sunset' },
+      { primary: '#a855f7', secondary: '#ec4899', name: 'Neon Purple' }
+    ];
+
+    let currentTheme = 0;
+
+    function changeTheme() {
+      currentTheme = (currentTheme + 1) % themes.length;
+      const theme = themes[currentTheme];
+
+      document.documentElement.style.setProperty('--primary-color', theme.primary);
+      document.body.style.setProperty('--primary-color', theme.primary);
+
+      // 更新CSS变量
+      const style = document.createElement('style');
+      style.textContent = `
+        body {
+          color: ${theme.primary};
+        }
+        .particle {
+          background: ${theme.primary};
+          box-shadow: 0 0 10px ${theme.primary}, 0 0 20px ${theme.primary};
+        }
+        .card {
+          border-color: ${theme.primary};
+          box-shadow: 0 0 20px ${theme.primary}33, inset 0 0 20px ${theme.primary}1a;
+        }
+        .cyber-button {
+          border-color: ${theme.primary};
+          color: ${theme.primary};
+        }
+        .progress-bar {
+          background: linear-gradient(90deg, ${theme.primary}, ${theme.secondary});
+        }
+      `;
+      document.head.appendChild(style);
+
+      showMessage(`Theme changed to: ${theme.name} 🎨`);
+    }
+
+    // ===== 粒子开关 =====
+    let particlesEnabled = true;
+
+    function toggleParticles() {
+      particlesEnabled = !particlesEnabled;
+      particlesContainer.style.display = particlesEnabled ? 'block' : 'none';
+      showMessage(`Particles ${particlesEnabled ? 'enabled' : 'disabled'} ✨`);
+    }
+
+    // ===== 故障效果 =====
+    function addGlitch() {
+      const title = document.querySelector('.glitch-title');
+      title.style.animation = 'none';
+      title.offsetHeight; // 触发重排
+      title.style.animation = 'glitch 0.5s 5';
+
+      showMessage('GLITCH ACTIVATED! 💥');
+    }
+
+    // ===== 消息显示 =====
+    function showMessage(text) {
+      const box = document.getElementById('message-box');
+      box.innerHTML = `<p style="color: #00ffff; font-size: 1.2em;">${text}</p>`;
+      box.style.animation = 'pulse 0.5s';
+
+      setTimeout(() => {
+        box.style.animation = '';
+      }, 500);
+    }
+
+    // ===== 键盘彩蛋 =====
+    let secretCode = '';
+    const secretWord = 'hello';
+
+    document.addEventListener('keypress', (e) => {
+      secretCode += e.key.toLowerCase();
+
+      if (secretCode.includes(secretWord)) {
+        activateSecret();
+        secretCode = '';
+      }
+
+      // 保持缓冲区合理大小
+      if (secretCode.length > 20) {
+        secretCode = secretCode.slice(-10);
+      }
+    });
+
+    function activateSecret() {
+      const body = document.body;
+      body.style.animation = 'rainbow 2s';
+
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes rainbow {
+          0% { filter: hue-rotate(0deg); }
+          50% { filter: hue-rotate(180deg); }
+          100% { filter: hue-rotate(360deg); }
+        }
+      `;
+      document.head.appendChild(style);
+
+      showMessage('🎉 SECRET UNLOCKED! You typed "hello"! 🎉');
+
+      setTimeout(() => {
+        body.style.animation = '';
+      }, 2000);
+    }
+
+    // ===== 随机彩蛋提示 =====
+    const tips = [
+      '💡 Try clicking the buttons above!',
+      '🎮 Can you find all the secrets?',
+      '🌟 This page has hidden features...',
+      '🎨 Change the theme to see different colors!',
+      '✨ Particles make everything better!'
+    ];
+
+    setTimeout(() => {
+      const tip = tips[Math.floor(Math.random() * tips.length)];
+      showMessage(tip);
+    }, 3000);
+  </script>
+</body>
+</html>

@@ -66,6 +66,7 @@
       text-align: center;
       color: #666;
       font-size: 0.9em;
+      position: relative;
     }
 
     /* 标题样式 */
@@ -151,6 +152,32 @@
       margin-right: 15px;
       font-size: 0.9em;
     }
+
+    /* 隐藏入口 - 秘密花园 */
+    .secret-entrance {
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      z-index: 9999;
+      opacity: 0.05;
+      transition: opacity 0.3s ease;
+      font-size: 16px;
+      color: #999;
+      text-decoration: none;
+      cursor: default;
+    }
+
+    .secret-entrance:hover {
+      opacity: 0.6;
+      color: #ff00ff;
+      text-shadow: 0 0 10px #ff00ff;
+      cursor: pointer;
+    }
+
+    .secret-entrance::after {
+      content: '∞';
+      font-size: 20px;
+    }
   </style>
 </head>
 <body>
@@ -171,5 +198,8 @@
   <footer>
     <p>&copy; {{ "now" | date: "%Y" }} {{ site.author.name }}. Last updated: {{ "now" | date: "%B %Y" }}.</p>
   </footer>
+
+  <!-- 隐藏入口 - 秘密花园 -->
+  <a href="{{ "/secret-garden/" | relative_url }}" class="secret-entrance" title="???"></a>
 </body>
 </html>
