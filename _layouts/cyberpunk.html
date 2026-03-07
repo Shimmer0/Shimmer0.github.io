@@ -3,10 +3,30 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Welcome to My Secret Garden 🌟</title>
+  <title>Shimmer0's Secret Nexus</title>
+
+  <!-- 引入科幻字体 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
-    /* ===== 全局重置与基础样式 ===== */
+    /* ===== 全局变量 & 主题 ===== */
+    :root {
+      --bg-dark: #050508;
+      --bg-panel: rgba(12, 16, 33, 0.45);
+      --primary: #00f0ff;
+      --primary-glow: rgba(0, 240, 255, 0.5);
+      --secondary: #ff003c;
+      --secondary-glow: rgba(255, 0, 60, 0.5);
+      --accent: #fcee0a;
+      --text-main: #e2e8f0;
+      --text-muted: #94a3b8;
+      --font-display: 'Orbitron', sans-serif;
+      --font-body: 'Rajdhani', sans-serif;
+      --font-code: 'Fira Code', monospace;
+    }
+
     * {
       margin: 0;
       padding: 0;
@@ -14,700 +34,648 @@
     }
 
     body {
-      font-family: 'Courier New', monospace;
-      background: linear-gradient(135deg, #0a0a0a 0%, #1a0033 50%, #0a0a0a 100%);
-      color: #00ffff;
+      font-family: var(--font-body);
+      background-color: var(--bg-dark);
+      color: var(--text-main);
       overflow-x: hidden;
       min-height: 100vh;
-      position: relative;
+      font-size: 18px;
+      line-height: 1.6;
     }
 
-    /* ===== 粒子背景效果 ===== */
-    .particles {
+    /* ===== 背景特效：星空 & 网格 ===== */
+    .bg-canvas {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 0;
+      top: 0; left: 0; width: 100%; height: 100%;
+      z-index: -2;
+      background: radial-gradient(circle at center, #111827 0%, #000000 100%);
     }
 
-    .particle {
-      position: absolute;
-      width: 2px;
-      height: 2px;
-      background: #00ffff;
-      border-radius: 50%;
-      box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
-      animation: float 15s infinite;
-    }
-
-    @keyframes float {
-      0%, 100% {
-        transform: translateY(100vh) rotate(0deg);
-        opacity: 0;
-      }
-      10% {
-        opacity: 1;
-      }
-      90% {
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-100vh) rotate(720deg);
-        opacity: 0;
-      }
-    }
-
-    /* ===== 网格背景 ===== */
-    .grid-bg {
+    .cyber-grid {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0; width: 100%; height: 100%;
+      z-index: -1;
       background-image:
-        linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
-      background-size: 50px 50px;
-      animation: grid-move 20s linear infinite;
-      z-index: 1;
+        linear-gradient(rgba(0, 240, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 240, 255, 0.05) 1px, transparent 1px);
+      background-size: 40px 40px;
+      transform: perspective(1000px) rotateX(60deg) translateY(-100px) translateZ(-200px);
+      animation: gridMove 15s linear infinite;
+      opacity: 0.6;
     }
 
-    @keyframes grid-move {
-      0% {
-        transform: perspective(500px) rotateX(60deg) translateY(0);
-      }
-      100% {
-        transform: perspective(500px) rotateX(60deg) translateY(50px);
-      }
+    @keyframes gridMove {
+      0% { transform: perspective(1000px) rotateX(60deg) translateY(0) translateZ(-200px); }
+      100% { transform: perspective(1000px) rotateX(60deg) translateY(40px) translateZ(-200px); }
     }
 
-    /* ===== 主容器 ===== */
-    .container {
-      position: relative;
-      z-index: 10;
-      max-width: 1200px;
+    /* 光效装饰 */
+    .ambient-light {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(100px);
+      z-index: -1;
+      opacity: 0.4;
+      animation: float 10s ease-in-out infinite alternate;
+    }
+    .ambient-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: var(--primary); }
+    .ambient-2 { bottom: -10%; right: -10%; width: 40vw; height: 40vw; background: var(--secondary); }
+
+    /* ===== 布局：Bento Box Grid ===== */
+    .nexus-container {
+      max-width: 1400px;
       margin: 0 auto;
-      padding: 50px 20px;
-      min-height: 100vh;
+      padding: 60px 20px;
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-gap: 24px;
+      grid-auto-flow: dense;
     }
 
-    /* ===== 标题样式 - 霓虹效果 ===== */
-    .glitch-title {
-      font-size: 4em;
+    /* 头部区域占据全宽 */
+    .hero-section {
+      grid-column: span 12;
       text-align: center;
-      margin-bottom: 50px;
-      position: relative;
-      animation: glitch 2s infinite;
-      text-shadow:
-        0 0 10px #00ffff,
-        0 0 20px #00ffff,
-        0 0 40px #00ffff,
-        0 0 80px #00ffff;
-    }
-
-    @keyframes glitch {
-      0%, 90%, 100% {
-        transform: translate(0);
-      }
-      92% {
-        transform: translate(-2px, 2px);
-        text-shadow:
-          0 0 10px #ff00ff,
-          0 0 20px #ff00ff,
-          0 0 40px #ff00ff;
-      }
-      94% {
-        transform: translate(2px, -2px);
-        text-shadow:
-          0 0 10px #00ff00,
-          0 0 20px #00ff00,
-          0 0 40px #00ff00;
-      }
-      96% {
-        transform: translate(-2px, -2px);
-      }
-      98% {
-        transform: translate(2px, 2px);
-      }
-    }
-
-    /* ===== 副标题 ===== */
-    .subtitle {
-      text-align: center;
-      font-size: 1.5em;
-      margin-bottom: 60px;
-      color: #ff00ff;
-      text-shadow: 0 0 10px #ff00ff;
-      animation: pulse 2s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% {
-        opacity: 1;
-      }
-      50% {
-        opacity: 0.6;
-      }
-    }
-
-    /* ===== 内容卡片 ===== */
-    .card {
-      background: rgba(20, 0, 40, 0.8);
-      border: 2px solid #00ffff;
-      border-radius: 10px;
-      padding: 30px;
       margin-bottom: 40px;
-      box-shadow:
-        0 0 20px rgba(0, 255, 255, 0.3),
-        inset 0 0 20px rgba(0, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      transition: all 0.3s ease;
+      animation: fadeInDown 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    /* ===== 赛博朋克面板 (Bento 卡片) ===== */
+    .cyber-panel {
+      background: var(--bg-panel);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 30px;
       position: relative;
-      overflow: hidden;
+      /* 切角设计 */
+      clip-path: polygon(
+        0 15px, 15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%
+      );
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+      transform-style: preserve-3d;
+      will-change: transform;
     }
 
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow:
-        0 0 40px rgba(0, 255, 255, 0.6),
-        inset 0 0 40px rgba(0, 255, 255, 0.2);
-      border-color: #ff00ff;
-    }
-
-    .card::before {
+    /* 卡片悬停流光边框 */
+    .cyber-panel::before {
       content: '';
       position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: linear-gradient(
-        45deg,
-        transparent,
-        rgba(0, 255, 255, 0.1),
-        transparent
-      );
-      transform: rotate(45deg);
-      animation: shine 3s infinite;
+      top: 0; left: 0; right: 0; bottom: 0;
+      border: 2px solid transparent;
+      background: linear-gradient(45deg, var(--primary), var(--secondary)) border-box;
+      -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: destination-out;
+      mask-composite: exclude;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      z-index: -1;
     }
 
-    @keyframes shine {
-      0% {
-        transform: translateX(-100%) rotate(45deg);
-      }
-      100% {
-        transform: translateX(100%) rotate(45deg);
-      }
+    .cyber-panel:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5), 0 0 20px var(--primary-glow);
+    }
+    .cyber-panel:hover::before {
+      opacity: 1;
     }
 
-    /* ===== 卡片标题 ===== */
-    .card h2 {
-      font-size: 2em;
-      margin-bottom: 20px;
-      color: #ff00ff;
-      text-shadow: 0 0 10px #ff00ff;
-      border-bottom: 2px solid #ff00ff;
-      padding-bottom: 10px;
+    /* 装饰角标 */
+    .panel-deco {
+      position: absolute;
+      width: 20px; height: 20px;
+      border: 2px solid var(--primary);
+      opacity: 0.5;
     }
+    .deco-tl { top: 10px; left: 10px; border-right: none; border-bottom: none; }
+    .deco-br { bottom: 10px; right: 10px; border-left: none; border-top: none; }
 
-    /* ===== 卡片内容 ===== */
-    .card p, .card li {
-      font-size: 1.1em;
-      line-height: 1.8;
-      color: #e0e0e0;
-      margin-bottom: 15px;
-    }
+    /* 网格分配 */
+    .panel-about { grid-column: span 8; grid-row: span 2; animation-delay: 0.1s; }
+    .panel-skills { grid-column: span 4; grid-row: span 3; animation-delay: 0.2s; }
+    .panel-journey { grid-column: span 5; grid-row: span 2; animation-delay: 0.3s; }
+    .panel-interact { grid-column: span 3; grid-row: span 2; animation-delay: 0.4s; }
+    .panel-interests { grid-column: span 8; grid-row: span 1; animation-delay: 0.5s; }
 
-    .card ul {
-      list-style: none;
-      padding-left: 0;
-    }
-
-    .card li::before {
-      content: '▸ ';
-      color: #00ffff;
-      font-weight: bold;
-      margin-right: 10px;
-    }
-
-    /* ===== 交互式按钮 ===== */
-    .cyber-button {
+    /* ===== 排版与文字特效 ===== */
+    .glitch-text {
+      font-family: var(--font-display);
+      font-size: 4rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      color: #fff;
+      text-shadow:
+        3px 3px 0px var(--secondary),
+        -3px -3px 0px var(--primary);
+      position: relative;
       display: inline-block;
-      padding: 15px 30px;
+    }
+
+    /* 故障悬停效果 */
+    .glitch-text:hover {
+      animation: glitch-skew 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+    }
+
+    @keyframes glitch-skew {
+      0% { transform: skew(0deg); }
+      20% { transform: skew(-20deg); }
+      40% { transform: skew(20deg); }
+      60% { transform: skew(-10deg); }
+      80% { transform: skew(10deg); }
+      100% { transform: skew(0deg); }
+    }
+
+    .subtitle {
+      font-family: var(--font-code);
+      color: var(--primary);
+      letter-spacing: 2px;
+      font-size: 1.2rem;
+      margin-top: 10px;
+    }
+
+    .typewriter {
+      overflow: hidden;
+      border-right: 2px solid var(--primary);
+      white-space: nowrap;
+      margin: 0 auto;
+      animation: typing 3s steps(40, end), blink-caret 0.75s step-end infinite;
+      max-width: fit-content;
+    }
+
+    @keyframes typing { from { width: 0 } to { width: 100% } }
+    @keyframes blink-caret { from, to { border-color: transparent } 50% { border-color: var(--primary) } }
+
+    h2.panel-title {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      color: #fff;
+      margin-bottom: 25px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    h2.panel-title::before {
+      content: '';
+      display: inline-block;
+      width: 12px; height: 12px;
+      background: var(--secondary);
+      box-shadow: 0 0 10px var(--secondary-glow);
+    }
+
+    /* ===== HUD 能量条 (Skills) ===== */
+    .hud-skill {
+      margin-bottom: 25px;
+    }
+    .hud-skill-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-family: var(--font-code);
+      font-size: 0.9rem;
+      color: var(--primary);
+    }
+    .hud-track {
+      display: flex;
+      gap: 4px;
+      height: 12px;
+    }
+    .hud-segment {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.1);
+      transform: skewX(-20deg);
+      transition: background 0.5s;
+    }
+    .hud-segment.active {
+      background: var(--primary);
+      box-shadow: 0 0 8px var(--primary-glow);
+    }
+
+    /* ===== 交互按钮 ===== */
+    .cyber-btn {
+      display: block;
+      width: 100%;
       background: transparent;
-      border: 2px solid #00ffff;
-      color: #00ffff;
-      font-size: 1.1em;
-      font-family: 'Courier New', monospace;
+      border: 1px solid var(--primary);
+      color: var(--primary);
+      font-family: var(--font-display);
+      font-size: 1rem;
+      text-transform: uppercase;
+      padding: 15px 20px;
+      margin-bottom: 15px;
       cursor: pointer;
       position: relative;
       overflow: hidden;
-      transition: all 0.3s ease;
-      text-decoration: none;
-      margin: 10px;
+      transition: 0.3s;
+      text-align: left;
+      letter-spacing: 1px;
     }
 
-    .cyber-button:hover {
-      background: rgba(0, 255, 255, 0.2);
-      box-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
-      transform: translateY(-2px);
-    }
-
-    .cyber-button::after {
+    .cyber-btn::before {
       content: '';
       position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-      transition: left 0.5s;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: var(--primary);
+      transition: 0.3s;
+      z-index: -1;
     }
 
-    .cyber-button:hover::after {
-      left: 100%;
-    }
-
-    /* ===== 技能进度条 ===== */
-    .skill-bar {
-      margin-bottom: 20px;
-    }
-
-    .skill-name {
-      display: block;
-      margin-bottom: 8px;
-      color: #ff00ff;
+    .cyber-btn:hover {
+      color: #000;
       font-weight: bold;
+      box-shadow: 0 0 15px var(--primary-glow);
     }
-
-    .progress-container {
-      background: rgba(0, 0, 0, 0.5);
-      border-radius: 10px;
-      padding: 5px;
-      border: 1px solid #00ffff;
-    }
-
-    .progress-bar {
-      height: 20px;
-      background: linear-gradient(90deg, #00ffff, #ff00ff);
-      border-radius: 5px;
-      animation: progress 2s ease-out forwards;
-      box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
-    }
-
-    @keyframes progress {
-      from {
-        width: 0%;
-      }
+    .cyber-btn:hover::before {
+      left: 0;
     }
 
     /* ===== 时间线 ===== */
-    .timeline {
-      position: relative;
-      padding-left: 30px;
+    .journey-timeline {
+      border-left: 2px solid rgba(255, 255, 255, 0.1);
+      padding-left: 20px;
+      margin-left: 10px;
     }
-
-    .timeline::before {
+    .journey-item {
+      position: relative;
+      margin-bottom: 25px;
+    }
+    .journey-item::before {
       content: '';
       position: absolute;
-      left: 0;
-      top: 0;
-      width: 2px;
-      height: 100%;
-      background: linear-gradient(180deg, #00ffff, #ff00ff, #00ffff);
-      box-shadow: 0 0 10px #00ffff;
+      left: -27px;
+      top: 5px;
+      width: 12px; height: 12px;
+      background: var(--bg-dark);
+      border: 2px solid var(--accent);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--accent);
+    }
+    .journey-year {
+      font-family: var(--font-code);
+      color: var(--accent);
+      font-size: 0.9rem;
+      margin-bottom: 5px;
+    }
+    .journey-title {
+      font-weight: 700;
+      color: #fff;
+      font-size: 1.2rem;
     }
 
-    .timeline-item {
-      margin-bottom: 30px;
-      position: relative;
+    /* 兴趣标签 */
+    .tag-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .cyber-tag {
+      padding: 8px 16px;
+      background: rgba(0, 240, 255, 0.1);
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      color: var(--text-main);
+      font-family: var(--font-code);
+      font-size: 0.9rem;
+      clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+      transition: 0.3s;
+    }
+    .cyber-tag:hover {
+      background: var(--primary);
+      color: #000;
+      box-shadow: 0 0 15px var(--primary-glow);
+      transform: translateY(-2px);
     }
 
-    .timeline-item::before {
-      content: '●';
-      position: absolute;
-      left: -34px;
-      color: #00ffff;
-      font-size: 20px;
-      text-shadow: 0 0 10px #00ffff;
-    }
-
-    /* ===== 打字机效果 ===== */
-    .typewriter {
-      overflow: hidden;
-      border-right: 2px solid #00ffff;
-      white-space: nowrap;
-      animation:
-        typing 3.5s steps(40, end),
-        blink-caret 0.75s step-end infinite;
-    }
-
-    @keyframes typing {
-      from { width: 0 }
-      to { width: 100% }
-    }
-
-    @keyframes blink-caret {
-      from, to { border-color: transparent }
-      50% { border-color: #00ffff }
-    }
-
-    /* ===== 鼠标跟随效果 ===== */
-    .cursor-follower {
+    /* 返回按钮 */
+    .btn-return {
       position: fixed;
-      width: 30px;
-      height: 30px;
-      border: 2px solid #ff00ff;
+      top: 30px; left: 30px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-family: var(--font-code);
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: 0.3s;
+      z-index: 100;
+    }
+    .btn-return:hover {
+      color: var(--primary);
+      text-shadow: 0 0 8px var(--primary-glow);
+    }
+
+    /* ===== 入场动画 ===== */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===== 响应式 ===== */
+    @media (max-width: 1024px) {
+      .panel-about { grid-column: span 12; }
+      .panel-skills { grid-column: span 6; }
+      .panel-journey { grid-column: span 6; }
+      .panel-interact { grid-column: span 12; }
+      .panel-interests { grid-column: span 12; }
+    }
+    @media (max-width: 768px) {
+      .nexus-container { display: flex; flex-direction: column; }
+      .glitch-text { font-size: 2.5rem; }
+    }
+
+    /* 鼠标跟随自定义光标 */
+    #custom-cursor {
+      position: fixed;
+      width: 40px; height: 40px;
+      border: 1px solid var(--primary);
       border-radius: 50%;
       pointer-events: none;
       z-index: 9999;
-      transition: all 0.1s ease;
-      box-shadow: 0 0 10px #ff00ff;
+      transform: translate(-50%, -50%);
+      transition: width 0.2s, height 0.2s, background 0.2s;
+      mix-blend-mode: difference;
     }
-
-    /* ===== 返回按钮 ===== */
-    .back-button {
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      z-index: 100;
-      padding: 10px 20px;
-      background: rgba(20, 0, 40, 0.8);
-      border: 2px solid #ff00ff;
-      color: #ff00ff;
-      text-decoration: none;
-      border-radius: 5px;
-      font-weight: bold;
-      transition: all 0.3s ease;
-    }
-
-    .back-button:hover {
-      background: rgba(255, 0, 255, 0.2);
-      box-shadow: 0 0 20px rgba(255, 0, 255, 0.6);
-    }
-
-    /* ===== 响应式设计 ===== */
-    @media (max-width: 768px) {
-      .glitch-title {
-        font-size: 2em;
-      }
-
-      .subtitle {
-        font-size: 1em;
-      }
-
-      .card {
-        padding: 20px;
-      }
-    }
-
-    /* ===== 扫描线效果 ===== */
-    .scanline {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(
-        0deg,
-        rgba(0, 0, 0, 0.1) 50%,
-        transparent 50%
-      );
-      background-size: 100% 4px;
-      pointer-events: none;
-      z-index: 9998;
-      opacity: 0.3;
+    #custom-cursor::after {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 4px; height: 4px;
+      background: var(--secondary);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
     }
   </style>
 </head>
 <body>
-  <!-- 鼠标跟随效果 -->
-  <div class="cursor-follower" id="cursor"></div>
 
-  <!-- 扫描线效果 -->
-  <div class="scanline"></div>
+  <!-- 自定义光标 -->
+  <div id="custom-cursor"></div>
 
-  <!-- 粒子背景 -->
-  <div class="particles" id="particles"></div>
+  <!-- 背景层 -->
+  <div class="bg-canvas"></div>
+  <div class="cyber-grid"></div>
+  <div class="ambient-light ambient-1"></div>
+  <div class="ambient-light ambient-2"></div>
 
-  <!-- 网格背景 -->
-  <div class="grid-bg"></div>
+  <!-- 返回顶部 -->
+  <a href="/" class="btn-return">
+    <span>[ ESC ]</span> RETURN_TO_BASE
+  </a>
 
-  <!-- 返回按钮 -->
-  <a href="/" class="back-button">← Back to Reality</a>
+  <main class="nexus-container">
 
-  <!-- 主内容 -->
-  <div class="container">
-    <h1 class="glitch-title">Welcome to My Secret Garden 🌟</h1>
-    <p class="subtitle typewriter">Where creativity meets technology...</p>
+    <!-- 头部区域 -->
+    <header class="hero-section">
+      <h1 class="glitch-text" data-text="SECRET NEXUS">SECRET NEXUS</h1>
+      <p class="subtitle typewriter">SYS.INIT() // CREATIVITY_OVERRIDE_ACTIVE</p>
+    </header>
 
-    <!-- 关于我 -->
-    <div class="card">
-      <h2>👤 About Me</h2>
-      <p>Hello! 欢迎来到我的秘密花园！这里是我真正的个人空间。</p>
-      <p>在学术的严谨之外，我是一个热爱探索、创造和玩耍的人。</p>
-      <p>这个页面使用了赛博朋克风格设计，融合了霓虹灯效果、粒子动画和交互式元素。</p>
-    </div>
+    <!-- 关于面板 -->
+    <article class="cyber-panel panel-about" data-tilt>
+      <div class="panel-deco deco-tl"></div>
+      <div class="panel-deco deco-br"></div>
+      <h2 class="panel-title">SYS.INFO // ABOUT_ME</h2>
+      <p style="font-size: 1.15rem; color: #fff; margin-bottom: 15px;">Welcome to the underground. 欢迎来到我的隐秘枢纽。</p>
+      <p style="margin-bottom: 15px;">在公开的学术主页之外，这里是我不受拘束的极客领域。抛开严谨的论文格式与排版要求，这里运行着赛博朋克的血液，记录着我作为一个创造者、探索者和玩家的真实心跳。</p>
+      <p>I build things, I break things, and I explore the unknown.</p>
+    </article>
 
-    <!-- 我的兴趣 -->
-    <div class="card">
-      <h2>🎮 My Interests</h2>
-      <ul>
-        <li>编程与算法</li>
-        <li>游戏与动漫</li>
-        <li>音乐与艺术</li>
-        <li>科幻与未来科技</li>
-        <li>探索未知的领域</li>
-      </ul>
-    </div>
+    <!-- 技能雷达/HUD面板 -->
+    <article class="cyber-panel panel-skills" data-tilt>
+      <div class="panel-deco deco-tl"></div>
+      <h2 class="panel-title">CORE_MODULES</h2>
 
-    <!-- 技能展示 -->
-    <div class="card">
-      <h2>⚡ Skills & Powers</h2>
-
-      <div class="skill-bar">
-        <span class="skill-name">Python / Machine Learning</span>
-        <div class="progress-container">
-          <div class="progress-bar" style="width: 90%;"></div>
+      <div class="hud-skill">
+        <div class="hud-skill-header">
+          <span>MACHINE_LEARNING</span>
+          <span>90%</span>
         </div>
+        <div class="hud-track" data-level="9"></div>
       </div>
 
-      <div class="skill-bar">
-        <span class="skill-name">Web Development</span>
-        <div class="progress-container">
-          <div class="progress-bar" style="width: 85%;"></div>
+      <div class="hud-skill">
+        <div class="hud-skill-header">
+          <span>ALGORITHM_DEV</span>
+          <span>85%</span>
         </div>
+        <div class="hud-track" data-level="8"></div>
       </div>
 
-      <div class="skill-bar">
-        <span class="skill-name">Problem Solving</span>
-        <div class="progress-container">
-          <div class="progress-bar" style="width: 95%;"></div>
+      <div class="hud-skill">
+        <div class="hud-skill-header">
+          <span>PROBLEM_SOLVING</span>
+          <span>95%</span>
         </div>
+        <div class="hud-track" data-level="10"></div>
       </div>
 
-      <div class="skill-bar">
-        <span class="skill-name">Creativity & Innovation</span>
-        <div class="progress-container">
-          <div class="progress-bar" style="width: 88%;"></div>
+      <div class="hud-skill">
+        <div class="hud-skill-header">
+          <span>CREATIVE_THINKING</span>
+          <span>80%</span>
+        </div>
+        <div class="hud-track" data-level="8"></div>
+      </div>
+    </article>
+
+    <!-- 旅程面板 -->
+    <article class="cyber-panel panel-journey" data-tilt>
+      <h2 class="panel-title">CHRONICLES</h2>
+      <div class="journey-timeline">
+        <div class="journey-item">
+          <div class="journey-year">> 2022 - PRESENT</div>
+          <div class="journey-title">Ph.D. Researcher @ Tsinghua</div>
+          <p class="text-muted">Pushing boundaries at the edge of human knowledge. The real grind begins.</p>
+        </div>
+        <div class="journey-item">
+          <div class="journey-year">> 2020 - 2022</div>
+          <div class="journey-title">Master Protocol</div>
+          <p class="text-muted">Algorithm optimization, deep dives into data architectures.</p>
+        </div>
+        <div class="journey-item">
+          <div class="journey-year">> PRE-2020</div>
+          <div class="journey-title">Origin Story</div>
+          <p class="text-muted">First lines of code, infinite curiosity awakened.</p>
         </div>
       </div>
-    </div>
+    </article>
 
-    <!-- 时间线 -->
-    <div class="card">
-      <h2>🌟 My Journey</h2>
-      <div class="timeline">
-        <div class="timeline-item">
-          <h3>2022 - Present</h3>
-          <p>Ph.D. Student @ Tsinghua University</p>
-          <p>Exploring the frontiers of research...</p>
-        </div>
+    <!-- 交互终端 -->
+    <article class="cyber-panel panel-interact" data-tilt>
+      <div class="panel-deco deco-tl"></div>
+      <h2 class="panel-title">TERMINAL</h2>
+      <p style="font-family: var(--font-code); font-size: 0.85rem; margin-bottom: 20px; color: var(--text-muted);">
+        Execute local commands to alter environment variables.
+      </p>
 
-        <div class="timeline-item">
-          <h3>2020 - 2022</h3>
-          <p>Master's Degree</p>
-          <p>Building foundations...</p>
-        </div>
+      <button class="cyber-btn" onclick="cycleTheme()">
+        > EXECUTE: CHANGE_THEME
+      </button>
+      <button class="cyber-btn" onclick="triggerGlitch()">
+        > EXECUTE: SYSTEM_GLITCH
+      </button>
 
-        <div class="timeline-item">
-          <h3>2016 - 2020</h3>
-          <p>Undergraduate Journey</p>
-          <p>Where it all began...</p>
-        </div>
+      <div id="terminal-output" style="margin-top: 20px; font-family: var(--font-code); color: var(--accent); min-height: 40px; font-size: 0.9rem;">
+        Waiting for input..._
       </div>
-    </div>
+    </article>
 
-    <!-- 互动区 -->
-    <div class="card" style="text-align: center;">
-      <h2>🚀 Interactive Zone</h2>
-      <p>探索更多酷炫的功能！</p>
+    <!-- 兴趣标签 -->
+    <article class="cyber-panel panel-interests" data-tilt>
+      <div class="panel-deco deco-br"></div>
+      <h2 class="panel-title">INTEREST_VECTORS</h2>
+      <div class="tag-cloud">
+        <div class="cyber-tag"># AI_Architecture</div>
+        <div class="cyber-tag"># Cyber_Security</div>
+        <div class="cyber-tag"># Sci-Fi_Literature</div>
+        <div class="cyber-tag"># Indie_Gaming</div>
+        <div class="cyber-tag"># Synthwave_Audio</div>
+        <div class="cyber-tag"># Generative_Art</div>
+        <div class="cyber-tag"># Quantum_Computing</div>
+      </div>
+    </article>
 
-      <a href="#" class="cyber-button" onclick="changeTheme()">
-        🎨 Change Theme
-      </a>
-
-      <a href="#" class="cyber-button" onclick="toggleParticles()">
-        ✨ Toggle Particles
-      </a>
-
-      <a href="#" class="cyber-button" onclick="addGlitch()">
-        💥 Glitch Effect
-      </a>
-
-      <div id="message-box" style="margin-top: 30px; min-height: 50px;"></div>
-    </div>
-
-    <!-- 隐藏彩蛋 -->
-    <div class="card" style="opacity: 0.3; transition: opacity 0.5s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.3'">
-      <h2>🎭 Secret Message</h2>
-      <p>You found it! 这里藏着一个秘密...</p>
-      <p style="font-size: 0.9em; color: #999;">Hint: Try typing "hello" on your keyboard...</p>
-    </div>
-  </div>
+  </main>
 
   <script>
-    // ===== 粒子系统 =====
-    const particlesContainer = document.getElementById('particles');
+    // ===== 初始化 HUD 能量条 =====
+    document.querySelectorAll('.hud-track').forEach(track => {
+      const level = parseInt(track.getAttribute('data-level'));
+      for (let i = 0; i < 10; i++) {
+        const segment = document.createElement('div');
+        segment.className = 'hud-segment';
+        if (i < level) {
+          // 延迟激活动画，制造科技感加载效果
+          setTimeout(() => {
+            segment.classList.add('active');
+          }, i * 100 + 800);
+        }
+        track.appendChild(segment);
+      }
+    });
 
-    function createParticle() {
-      const particle = document.createElement('div');
-      particle.classList.add('particle');
-      particle.style.left = Math.random() * 100 + '%';
-      particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
-      particle.style.animationDelay = Math.random() * 5 + 's';
-      particlesContainer.appendChild(particle);
-
-      setTimeout(() => {
-        particle.remove();
-      }, 15000);
-    }
-
-    // 初始化粒子
-    for (let i = 0; i < 30; i++) {
-      setTimeout(createParticle, i * 200);
-    }
-
-    // 持续创建新粒子
-    setInterval(createParticle, 1000);
-
-    // ===== 鼠标跟随效果 =====
-    const cursor = document.getElementById('cursor');
-
+    // ===== 自定义鼠标指针 =====
+    const cursor = document.getElementById('custom-cursor');
     document.addEventListener('mousemove', (e) => {
-      cursor.style.left = e.clientX - 15 + 'px';
-      cursor.style.top = e.clientY - 15 + 'px';
+      // 使用 requestAnimationFrame 优化性能
+      requestAnimationFrame(() => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+      });
     });
 
-    // ===== 主题切换 =====
+    // 悬停交互元素时放大光标
+    const interactables = document.querySelectorAll('a, button, .cyber-tag');
+    interactables.forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        cursor.style.width = '60px';
+        cursor.style.height = '60px';
+        cursor.style.background = 'rgba(0, 240, 255, 0.1)';
+      });
+      el.addEventListener('mouseleave', () => {
+        cursor.style.width = '40px';
+        cursor.style.height = '40px';
+        cursor.style.background = 'transparent';
+      });
+    });
+
+    // ===== 终端日志输出 =====
+    const terminal = document.getElementById('terminal-output');
+    function logToTerminal(msg) {
+      terminal.innerHTML = `> ${msg}<span style="animation: blink-caret 0.75s infinite;">_</span>`;
+    }
+
+    // ===== 主题切换系统 =====
     const themes = [
-      { primary: '#00ffff', secondary: '#ff00ff', name: 'Cyberpunk' },
-      { primary: '#00ff00', secondary: '#ffff00', name: 'Matrix' },
-      { primary: '#ff6b6b', secondary: '#4ecdc4', name: 'Sunset' },
-      { primary: '#a855f7', secondary: '#ec4899', name: 'Neon Purple' }
+      { primary: '#00f0ff', secondary: '#ff003c', accent: '#fcee0a', name: 'CYBER_NEON' },
+      { primary: '#39ff14', secondary: '#000000', accent: '#ffffff', name: 'MATRIX_GREEN' },
+      { primary: '#bc13fe', secondary: '#4d4dff', accent: '#ff007f', name: 'SYNTHWAVE' },
+      { primary: '#ff6600', secondary: '#ff0000', accent: '#ffcc00', name: 'SOLAR_FLARE' }
     ];
+    let currentThemeIdx = 0;
 
-    let currentTheme = 0;
+    function cycleTheme() {
+      currentThemeIdx = (currentThemeIdx + 1) % themes.length;
+      const t = themes[currentThemeIdx];
 
-    function changeTheme() {
-      currentTheme = (currentTheme + 1) % themes.length;
-      const theme = themes[currentTheme];
+      const root = document.documentElement;
+      root.style.setProperty('--primary', t.primary);
+      root.style.setProperty('--primary-glow', t.primary + '80');
+      root.style.setProperty('--secondary', t.secondary);
+      root.style.setProperty('--secondary-glow', t.secondary + '80');
+      root.style.setProperty('--accent', t.accent);
 
-      document.documentElement.style.setProperty('--primary-color', theme.primary);
-      document.body.style.setProperty('--primary-color', theme.primary);
-
-      // 更新CSS变量
-      const style = document.createElement('style');
-      style.textContent = `
-        body {
-          color: ${theme.primary};
-        }
-        .particle {
-          background: ${theme.primary};
-          box-shadow: 0 0 10px ${theme.primary}, 0 0 20px ${theme.primary};
-        }
-        .card {
-          border-color: ${theme.primary};
-          box-shadow: 0 0 20px ${theme.primary}33, inset 0 0 20px ${theme.primary}1a;
-        }
-        .cyber-button {
-          border-color: ${theme.primary};
-          color: ${theme.primary};
-        }
-        .progress-bar {
-          background: linear-gradient(90deg, ${theme.primary}, ${theme.secondary});
-        }
-      `;
-      document.head.appendChild(style);
-
-      showMessage(`Theme changed to: ${theme.name} 🎨`);
+      logToTerminal(`THEME_UPDATED: [ ${t.name} ]`);
     }
 
-    // ===== 粒子开关 =====
-    let particlesEnabled = true;
-
-    function toggleParticles() {
-      particlesEnabled = !particlesEnabled;
-      particlesContainer.style.display = particlesEnabled ? 'block' : 'none';
-      showMessage(`Particles ${particlesEnabled ? 'enabled' : 'disabled'} ✨`);
-    }
-
-    // ===== 故障效果 =====
-    function addGlitch() {
-      const title = document.querySelector('.glitch-title');
+    // ===== 手动触发故障效果 =====
+    function triggerGlitch() {
+      const title = document.querySelector('.glitch-text');
       title.style.animation = 'none';
-      title.offsetHeight; // 触发重排
-      title.style.animation = 'glitch 0.5s 5';
+      void title.offsetWidth; // 触发回流重绘
+      title.style.animation = 'glitch-skew 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 5';
 
-      showMessage('GLITCH ACTIVATED! 💥');
+      logToTerminal('WARNING: ARTIFICIAL_GLITCH_INDUCED');
     }
 
-    // ===== 消息显示 =====
-    function showMessage(text) {
-      const box = document.getElementById('message-box');
-      box.innerHTML = `<p style="color: #00ffff; font-size: 1.2em;">${text}</p>`;
-      box.style.animation = 'pulse 0.5s';
+    // ===== 3D 卡片倾斜效果 (Vanilla JS VanillaTilt 替代) =====
+    const cards = document.querySelectorAll('[data-tilt]');
+    cards.forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
 
-      setTimeout(() => {
-        box.style.animation = '';
-      }, 500);
-    }
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
 
-    // ===== 键盘彩蛋 =====
-    let secretCode = '';
-    const secretWord = 'hello';
+        // 计算倾斜角度 (最大倾斜 5 度)
+        const rotateX = ((y - centerY) / centerY) * -5;
+        const rotateY = ((x - centerX) / centerX) * 5;
 
-    document.addEventListener('keypress', (e) => {
-      secretCode += e.key.toLowerCase();
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+      });
 
-      if (secretCode.includes(secretWord)) {
-        activateSecret();
-        secretCode = '';
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)`;
+      });
+    });
+
+    // ===== Konami Code 彩蛋 (输入 hello) =====
+    let secretBuffer = '';
+    document.addEventListener('keydown', (e) => {
+      secretBuffer += e.key.toLowerCase();
+      if (secretBuffer.length > 5) {
+        secretBuffer = secretBuffer.slice(-5);
       }
 
-      // 保持缓冲区合理大小
-      if (secretCode.length > 20) {
-        secretCode = secretCode.slice(-10);
+      if (secretBuffer === 'hello') {
+        activateGodMode();
+        secretBuffer = '';
       }
     });
 
-    function activateSecret() {
-      const body = document.body;
-      body.style.animation = 'rainbow 2s';
+    function activateGodMode() {
+      logToTerminal('EASTER_EGG_FOUND: INITIATING_GOD_MODE');
+      document.body.style.animation = 'rainbowBG 2s infinite alternate';
 
       const style = document.createElement('style');
       style.textContent = `
-        @keyframes rainbow {
-          0% { filter: hue-rotate(0deg); }
-          50% { filter: hue-rotate(180deg); }
-          100% { filter: hue-rotate(360deg); }
+        @keyframes rainbowBG {
+          0% { filter: hue-rotate(0deg) contrast(1.2); }
+          100% { filter: hue-rotate(360deg) contrast(1.5); }
         }
       `;
       document.head.appendChild(style);
-
-      showMessage('🎉 SECRET UNLOCKED! You typed "hello"! 🎉');
-
-      setTimeout(() => {
-        body.style.animation = '';
-      }, 2000);
     }
-
-    // ===== 随机彩蛋提示 =====
-    const tips = [
-      '💡 Try clicking the buttons above!',
-      '🎮 Can you find all the secrets?',
-      '🌟 This page has hidden features...',
-      '🎨 Change the theme to see different colors!',
-      '✨ Particles make everything better!'
-    ];
-
-    setTimeout(() => {
-      const tip = tips[Math.floor(Math.random() * tips.length)];
-      showMessage(tip);
-    }, 3000);
   </script>
 </body>
 </html>

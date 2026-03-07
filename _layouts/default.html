@@ -21,6 +21,7 @@
       max-width: 1200px;
       margin: 0 auto;
       padding: 20px;
+      background: #fff;
     }
 
     /* 导航栏 */
@@ -156,27 +157,35 @@
     /* 隐藏入口 - 秘密花园 */
     .secret-entrance {
       position: fixed;
-      bottom: 10px;
-      right: 10px;
+      bottom: 15px;
+      right: 15px;
       z-index: 9999;
-      opacity: 0.05;
-      transition: opacity 0.3s ease;
-      font-size: 16px;
-      color: #999;
+      opacity: 0.03;
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      font-size: 24px;
+      color: #cbd5e1;
       text-decoration: none;
-      cursor: default;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      border: 1px solid transparent;
     }
 
     .secret-entrance:hover {
-      opacity: 0.6;
-      color: #ff00ff;
-      text-shadow: 0 0 10px #ff00ff;
-      cursor: pointer;
+      opacity: 1;
+      color: #00f0ff;
+      border-color: #00f0ff;
+      box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+      background: #050508;
+      transform: scale(1.2) rotate(360deg);
     }
 
     .secret-entrance::after {
-      content: '∞';
-      font-size: 20px;
+      content: '⬢';
+      font-family: serif;
     }
   </style>
 </head>
@@ -199,7 +208,7 @@
     <p>&copy; {{ "now" | date: "%Y" }} {{ site.author.name }}. Last updated: {{ "now" | date: "%B %Y" }}.</p>
   </footer>
 
-  <!-- 隐藏入口 - 秘密花园 -->
-  <a href="{{ "/secret-garden/" | relative_url }}" class="secret-entrance" title="???"></a>
+  <!-- 隐藏入口 - 秘密花园 (Nexus) -->
+  <a href="{{ "/secret-garden/" | relative_url }}" class="secret-entrance" title="INITIATE_NEXUS"></a>
 </body>
 </html>
