@@ -1,0 +1,31 @@
+title: Shimmer0's Academic Website
+email: zy-xu23@mails.tsinghua.edu.cn
+description: Personal academic website
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "" # the base hostname & protocol for your site, e.g. http://example.com
+
+# Author information
+author:
+  name: Shimmer0
+  email: zy-xu23@mails.tsinghua.edu.cn
+
+# Build settings
+markdown: kramdown
+theme: minima
+plugins:
+  - jekyll-feed
+
+# Pages to include in header navigation
+header_pages:
+  - about.md
+  - publications.md
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
