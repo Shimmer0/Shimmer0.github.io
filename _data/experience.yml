@@ -1,0 +1,59 @@
+# ===================================================================
+# Experience Data File - 工作与实习经历数据文件
+# ===================================================================
+#
+# 这个文件包含你的工作经历、实习经历等
+# 网站会自动读取这些信息并展示
+#
+# 如何添加经历？
+# 1. 复制下面的模板
+# 2. 填写信息
+# 3. 保存文件 - 网站会自动更新！
+#
+# 字段说明：
+# - type: 经历类型 (academic, industry, internship, teaching)
+# - title: 职位名称
+# - organization: 机构/公司名称
+# - location: 工作地点
+# - start_date: 开始时间（如 "2023-09"）
+# - end_date: 结束时间（如 "2024-01"，在职用 "Present"）
+# - description: 工作描述（可选，列表形式）
+# ===================================================================
+
+# ==================== 学术经历 (Academic Experience) ====================
+academic_experience:
+  # --- 示例模板 ---
+  # - title: "Research Assistant"
+  #   organization: "Tsinghua University"
+  #   location: "Beijing, China"
+  #   start_date: "2022-09"
+  #   end_date: "Present"
+  #   description:
+  #     - "Conduct research on [topic]"
+  #     - "Published X papers in top-tier conferences/journals"
+  #     - "Collaborated with [collaborators]"
+
+# ==================== 工业界经历 (Industry Experience) ====================
+industry_experience:
+  # --- 示例模板 ---
+  # - title: "Research Intern"
+  #   organization: "Company Name"
+  #   location: "City, Country"
+  #   start_date: "2023-06"
+  #   end_date: "2023-09"
+  #   description:
+  #     - "Developed [product/feature]"
+  #     - "Improved [metric] by X%"
+  #     - "Worked with [team] on [project]"
+
+# ==================== 教学经历 (Teaching Experience) ====================
+teaching_experience:
+  # --- 示例模板 ---
+  # - title: "Teaching Assistant"
+  #   organization: "Tsinghua University"
+  #   course: "Course Name"
+  #   semester: "Fall 2023"
+  #   description:
+  #     - "Led weekly discussion sections for X students"
+  #     - "Graded assignments and exams"
+  #     - "Held office hours and provided one-on-one tutoring"

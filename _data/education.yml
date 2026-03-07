@@ -1,0 +1,58 @@
+# ===================================================================
+# Education Data File - 教育背景数据文件
+# ===================================================================
+#
+# 如何添加教育经历？
+# 1. 复制下面的模板
+# 2. 填写信息
+# 3. 保存文件 - 网站会自动更新！
+#
+# 字段说明：
+# - degree: 学位名称（如 Ph.D., M.S., B.S.）
+# - major: 专业/研究方向
+# - institution: 学校名称
+# - location: 学校位置
+# - start_date: 开始时间（如 "2020-09"）
+# - end_date: 结束时间（如 "2025-06"，在读用 "Present"）
+# - thesis: 论文标题（可选）
+# - advisor: 导师姓名（可选）
+# - gpa: GPA（可选）
+# - honors: 荣誉奖项（可选，列表形式）
+# ===================================================================
+
+education:
+  # --- 博士学位（示例模板）---
+  # - degree: "Ph.D."
+  #   major: "Computer Science"
+  #   institution: "Tsinghua University"
+  #   location: "Beijing, China"
+  #   start_date: "2022-09"
+  #   end_date: "Present"
+  #   thesis: "Your Dissertation Title"
+  #   advisor: "Prof. Advisor Name"
+  #   gpa: "3.9/4.0"
+  #   honors:
+  #     - "National Scholarship (2023)"
+  #     - "Outstanding Graduate Student Award (2022)"
+
+  # --- 硕士学位（示例模板）---
+  # - degree: "M.S."
+  #   major: "Computer Science"
+  #   institution: "University Name"
+  #   location: "City, Country"
+  #   start_date: "2020-09"
+  #   end_date: "2022-06"
+  #   thesis: "Master's Thesis Title"
+  #   advisor: "Prof. Advisor Name"
+
+  # --- 本科学位（示例模板）---
+  # - degree: "B.S."
+  #   major: "Computer Science"
+  #   institution: "University Name"
+  #   location: "City, Country"
+  #   start_date: "2016-09"
+  #   end_date: "2020-06"
+  #   gpa: "3.8/4.0"
+  #   honors:
+  #     - "Dean's List (2016-2020)"
+  #     - "Outstanding Undergraduate Thesis Award"

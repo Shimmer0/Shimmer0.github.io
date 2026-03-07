@@ -1,0 +1,46 @@
+# ===================================================================
+# Research Data File - 研究兴趣与项目数据文件
+# ===================================================================
+#
+# 这个文件包含你的研究兴趣和研究项目信息
+# 网站会自动读取这些信息并展示
+#
+# 如何编辑？
+# 1. 修改下面的内容
+# 2. 保存文件 - 网站会自动更新！
+# ===================================================================
+
+# ==================== 研究兴趣 (Research Interests) ====================
+# 简短描述你的研究兴趣领域
+research_interests:
+  - "Machine Learning"
+  - "Computer Vision"
+  - "Natural Language Processing"
+  # - "Add your research interest here"
+  # - "Add more interests as needed"
+
+# ==================== 研究简介 (Research Summary) ====================
+# 一段简短的研究介绍（2-3句话）
+research_summary: >
+  My research focuses on developing novel algorithms and systems for
+  [your research area]. I am particularly interested in [specific topics]
+  and their applications in [application domains].
+
+# ==================== 研究项目 (Research Projects) ====================
+# 列出你参与的重要研究项目
+projects:
+  # --- 项目模板 ---
+  # - name: "Project Name"
+  #   role: "Your Role (e.g., Principal Investigator, Co-PI, Research Assistant)"
+  #   period: "2023 - Present"
+  #   funder: "Funding Agency (optional)"
+  #   amount: "$100,000 (optional)"
+  #   description: "Brief description of the project (1-2 sentences)"
+  #   collaborators:
+  #     - "Prof. Name (Institution)"
+  #     - "Dr. Name (Institution)"
+
+# ==================== 合作信息 (Collaboration) ====================
+# 是否接受合作？如何联系？
+open_to_collaboration: true
+collaboration_note: "I am always open to collaborations and discussions. Feel free to reach out!"

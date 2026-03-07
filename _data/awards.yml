@@ -1,0 +1,62 @@
+# ===================================================================
+# Awards & Honors Data File - 获奖与荣誉数据文件
+# ===================================================================
+#
+# 这个文件包含你的获奖信息、荣誉、奖学金等
+# 网站会自动读取这些信息并展示
+#
+# 如何添加获奖信息？
+# 1. 复制下面的模板
+# 2. 填写信息
+# 3. 保存文件 - 网站会自动更新！
+#
+# 字段说明：
+# - title: 奖项名称
+# - organization: 颁发机构
+# - year: 获奖年份
+# - description: 简短描述（可选）
+# - highlight: 是否高亮显示（true/false）
+# ===================================================================
+
+awards:
+  # --- 示例模板（请删除或注释掉）---
+  # - title: "National Scholarship"
+  #   organization: "Ministry of Education, China"
+  #   year: 2023
+  #   description: "Top 1% of graduate students nationwide"
+  #   highlight: true
+
+  # - title: "Outstanding Graduate Student Award"
+  #   organization: "Tsinghua University"
+  #   year: 2022
+  #   description: "Recognized for academic excellence and research contributions"
+  #   highlight: false
+
+  # - title: "Best Paper Award"
+  #   organization: "Conference Name"
+  #   year: 2023
+  #   description: "Paper title: [Your Paper Title]"
+  #   highlight: true
+
+# ==================== 专业服务 (Professional Service) ====================
+# 如审稿、编委、会议组织等
+professional_service:
+  # --- 示例模板 ---
+  # - role: "Reviewer"
+  #   venue: "Journal/Conference Name"
+  #   year: "2023 - Present"
+
+  # - role: "Program Committee Member"
+  #   venue: "Conference Name"
+  #   year: "2023"
+
+# ==================== 学术团体会员 (Professional Memberships) ====================
+memberships:
+  # --- 示例模板 ---
+  # - organization: "ACM"
+  #   type: "Student Member"
+  #   year: "2022 - Present"
+
+  # - organization: "IEEE"
+  #   type: "Member"
+  #   year: "2023 - Present"

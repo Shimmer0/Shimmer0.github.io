@@ -1,0 +1,84 @@
+# ===================================================================
+# Publications Data File - 发表作品数据文件
+# ===================================================================
+#
+# 如何添加新的发表作品？
+# 1. 复制下面的模板
+# 2. 填写信息
+# 3. 保存文件 - 网站会自动更新！
+#
+# 字段说明：
+# - type: 作品类型 (journal, conference, preprint, thesis, book)
+# - title: 论文标题
+# - authors: 作者列表（用逗号分隔）
+# - venue: 期刊/会议名称
+# - year: 发表年份
+# - volume: 卷号（期刊用）
+# - issue: 期号（期刊用）
+# - pages: 页码范围
+# - doi: DOI链接（可选）
+# - pdf: PDF链接（可选）
+# - code: 代码链接（可选）
+# - slides: 幻灯片链接（可选）
+# - poster: 海报链接（可选）
+# - highlight: 是否高亮显示（true/false）
+# ===================================================================
+
+# ==================== 期刊论文 (Journal Articles) ====================
+journal_papers:
+  # --- 示例模板（请删除或注释掉）---
+  # - title: "Your Paper Title Here"
+  #   authors: "Your Name, Co-author Name"
+  #   venue: "Journal Name"
+  #   year: 2025
+  #   volume: "1"
+  #   issue: "1"
+  #   pages: "1-10"
+  #   doi: "https://doi.org/10.xxxx/xxxxx"
+  #   pdf: "/files/paper.pdf"
+  #   code: "https://github.com/username/repo"
+  #   highlight: true
+
+# ==================== 会议论文 (Conference Papers) ====================
+conference_papers:
+  # --- 示例模板（请删除或注释掉）---
+  # - title: "Conference Paper Title"
+  #   authors: "Your Name, Co-author Name"
+  #   venue: "Conference Name"
+  #   year: 2025
+  #   pages: "1-10"
+  #   pdf: "/files/conference_paper.pdf"
+  #   slides: "/files/slides.pdf"
+  #   poster: "/files/poster.pdf"
+  #   code: "https://github.com/username/repo"
+  #   highlight: false
+
+# ==================== 预印本 (Preprints) ====================
+preprints:
+  # --- 示例模板（请删除或注释掉）---
+  # - title: "Preprint Title"
+  #   authors: "Your Name, Co-author Name"
+  #   year: 2025
+  #   arxiv: "https://arxiv.org/abs/1234.5678"
+  #   pdf: "/files/preprint.pdf"
+  #   highlight: false
+
+# ==================== 学位论文 (Theses) ====================
+theses:
+  # --- 示例模板（请删除或注释掉）---
+  # - title: "Your Thesis Title"
+  #   degree: "Ph.D. Thesis"
+  #   institution: "University Name"
+  #   year: 2025
+  #   pdf: "/files/thesis.pdf"
+
+# ==================== 书籍章节 (Book Chapters) ====================
+book_chapters:
+  # --- 示例模板（请删除或注释掉）---
+  # - title: "Chapter Title"
+  #   authors: "Your Name, Co-author Name"
+  #   book: "Book Title"
+  #   publisher: "Publisher Name"
+  #   year: 2025
+  #   pages: "1-20"
+  #   doi: "https://doi.org/10.xxxx/xxxxx"

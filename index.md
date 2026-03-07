@@ -3,20 +3,43 @@ layout: home
 title: Home
 ---
 
-# Welcome
+# {{ site.data.contact.name }}
 
-[Your welcome message here]
+{{ site.data.contact.affiliation.position }} at {{ site.data.contact.affiliation.institution }}
 
 ## About Me
 
-[Brief introduction about yourself]
+{{ site.data.research.research_summary }}
 
 ## Research Interests
 
-- [Interest 1]
-- [Interest 2]
-- [Interest 3]
+{% for interest in site.data.research.research_interests %}
+- {{ interest }}
+{% endfor %}
+
+## Quick Links
+
+- [Full CV]({{ "/cv/" | relative_url }})
+- [Research]({{ "/research/" | relative_url }})
+- [Publications]({{ "/publications/" | relative_url }})
+- [Contact]({{ "/contact/" | relative_url }})
+
+## Recent News
+
+- [Add your recent news here]
+- [Conference presentations, awards, etc.]
 
 ## Contact
 
-Email: [zy-xu23@mails.tsinghua.edu.cn](mailto:zy-xu23@mails.tsinghua.edu.cn)
+Email: [{{ site.data.contact.email }}](mailto:{{ site.data.contact.email }})
+
+{% if site.data.contact.social %}
+## Find Me On
+
+{% if site.data.contact.social.google_scholar %}
+- [Google Scholar]({{ site.data.contact.social.google_scholar }})
+{% endif %}
+{% if site.data.contact.social.github %}
+- [GitHub]({{ site.data.contact.social.github }})
+{% endif %}
+{% endif %}

@@ -1,0 +1,65 @@
+# ===================================================================
+# Contact Information Data File - 联系方式数据文件
+# ===================================================================
+#
+# 这个文件包含你的联系方式和社交媒体链接
+# 网站会自动读取这些信息并展示
+#
+# 如何编辑？
+# 1. 修改下面的信息
+# 2. 保存文件 - 网站会自动更新！
+#
+# 注意：如果不希望显示某项信息，可以在前面加 # 注释掉
+# ===================================================================
+
+# ==================== 基本信息 ====================
+name: "Shimmer0"
+email: "zy-xu23@mails.tsinghua.edu.cn"
+
+# 机构信息
+affiliation:
+  institution: "Tsinghua University"
+  department: "Department Name"
+  position: "Ph.D. Student"  # 或 "Researcher", "Professor" 等
+
+# 地址（可选）
+address:
+  street: ""
+  city: "Beijing"
+  country: "China"
+  postal_code: ""
+
+# 办公室位置（可选）
+office: "Building Name, Room Number"
+
+# ==================== 社交媒体与学术平台 ====================
+# 如果没有某个账号，可以在前面加 # 注释掉
+
+social:
+  # Google Scholar（强烈推荐）
+  google_scholar: "https://scholar.google.com/citations?user=XXXXX"
+
+  # ResearchGate
+  # researchgate: "https://www.researchgate.net/profile/Your-Name"
+
+  # ORCID（学术身份标识，推荐注册）
+  # orcid: "https://orcid.org/0000-0000-0000-0000"
+
+  # GitHub（如果做开源项目）
+  github: "https://github.com/Shimmer0"
+
+  # 个人网站（如果有其他网站）
+  # website: "https://your-website.com"
+
+  # LinkedIn
+  # linkedin: "https://www.linkedin.com/in/your-name"
+
+  # Twitter/X（如果用于学术交流）
+  # twitter: "https://twitter.com/your_handle"
+
+# ==================== 联系偏好 ====================
+# 是否公开显示所有联系方式？
+show_all_contact: false  # true = 显示所有信息，false = 只显示基本信息
+
+# 联系说明（可选）
+contact_note: "Feel free to reach out for research collaborations, discussions, or just to say hi!"
