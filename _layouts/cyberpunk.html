@@ -148,34 +148,42 @@
       top: 0;
       left: 0;
       right: 0;
-      padding: 24px 40px;
+      padding: 20px 40px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       z-index: 100;
-      background: linear-gradient(to bottom, rgba(15, 12, 41, 0.8) 0%, transparent 100%);
+      background: rgba(15, 12, 41, 0.6);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(168, 237, 234, 0.1);
     }
 
     .nav-link {
-      color: var(--text-secondary);
+      color: var(--text-primary);
       text-decoration: none;
-      font-size: 0.85rem;
+      font-size: 0.9rem;
       letter-spacing: 0.5px;
       transition: color 0.3s;
       display: flex;
       align-items: center;
       gap: 8px;
+      padding: 8px 16px;
+      border-radius: 20px;
+      background: rgba(168, 237, 234, 0.05);
+      border: 1px solid rgba(168, 237, 234, 0.15);
     }
 
     .nav-link:hover,
     .nav-link:focus-visible {
       color: var(--accent-aurora);
+      background: rgba(168, 237, 234, 0.15);
+      border-color: rgba(168, 237, 234, 0.3);
     }
 
     .nav-link:focus-visible {
       outline: 2px solid var(--accent-aurora);
-      outline-offset: 4px;
-      border-radius: 4px;
+      outline-offset: 2px;
     }
 
     /* ===== 主容器 ===== */
@@ -605,6 +613,17 @@
           <span>◈</span> 触发彩蛋
         </button>
         <p id="output" style="margin-top: 16px; font-size: 0.9rem; color: var(--accent-gold);" aria-live="polite"></p>
+      </article>
+
+      <!-- 工具箱入口 -->
+      <article class="glass-card col-6" style="background: linear-gradient(135deg, rgba(168, 237, 234, 0.08) 0%, rgba(210, 153, 194, 0.08) 100%);">
+        <h2 class="card-title">Toolbox</h2>
+        <p class="prose" style="margin-bottom: 20px;">
+          实用小工具集合：校历转换器等。
+        </p>
+        <a href="{{ '/awesome-tools/' | relative_url }}" class="action-btn" style="text-decoration: none;">
+          <span>→</span> 进入工具箱
+        </a>
       </article>
 
       <!-- 兴趣 -->
