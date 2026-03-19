@@ -27,6 +27,21 @@
       background: #fff;
     }
 
+    /* 跳转链接 */
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: #3498db;
+      color: white;
+      padding: 8px 16px;
+      z-index: 100;
+      transition: top 0.3s;
+    }
+    .skip-link:focus {
+      top: 0;
+    }
+
     /* 导航栏 */
     nav {
       border-bottom: 2px solid #e0e0e0;
@@ -57,6 +72,12 @@
       color: #3498db;
     }
 
+    nav ul li a:focus-visible {
+      outline: 2px solid #3498db;
+      outline-offset: 2px;
+      border-radius: 3px;
+    }
+
     /* 页面内容 */
     .page-content {
       min-height: calc(100vh - 200px);
@@ -78,6 +99,7 @@
       color: #2c3e50;
       margin-top: 1.5em;
       margin-bottom: 0.5em;
+      scroll-margin-top: 20px;
     }
 
     h1 {
@@ -99,6 +121,12 @@
 
     a:hover {
       text-decoration: underline;
+    }
+
+    a:focus-visible {
+      outline: 2px solid #3498db;
+      outline-offset: 2px;
+      border-radius: 3px;
     }
 
     /* 列表样式 */
@@ -160,16 +188,16 @@
     /* 隐藏入口 - 秘密花园 */
     .secret-entrance {
       position: fixed;
-      bottom: 15px;
-      right: 15px;
+      bottom: 20px;
+      right: 20px;
       z-index: 9999;
-      opacity: 0.03;
-      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      font-size: 24px;
-      color: #cbd5e1;
+      opacity: 0.15;
+      transition: opacity 0.5s ease, color 0.5s, box-shadow 0.5s, transform 0.5s;
+      font-size: 20px;
+      color: #a8b4c0;
       text-decoration: none;
-      width: 40px;
-      height: 40px;
+      width: 36px;
+      height: 36px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -177,23 +205,41 @@
       border: 1px solid transparent;
     }
 
-    .secret-entrance:hover {
+    .secret-entrance:hover,
+    .secret-entrance:focus-visible {
       opacity: 1;
-      color: #00f0ff;
-      border-color: #00f0ff;
-      box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
-      background: #050508;
-      transform: scale(1.2) rotate(360deg);
+      color: #a8edea;
+      border-color: rgba(168, 237, 234, 0.3);
+      box-shadow: 0 0 20px rgba(168, 237, 234, 0.3);
+      background: rgba(168, 237, 234, 0.1);
+      transform: scale(1.1);
+    }
+
+    .secret-entrance:focus-visible {
+      outline: 2px solid #a8edea;
+      outline-offset: 4px;
     }
 
     .secret-entrance::after {
-      content: '⬢';
+      content: '✧';
       font-family: serif;
+    }
+
+    /* 减少动画偏好 */
+    @media (prefers-reduced-motion: reduce) {
+      .secret-entrance {
+        transition: opacity 0.2s;
+      }
+      .secret-entrance:hover,
+      .secret-entrance:focus-visible {
+        transform: none;
+      }
     }
   </style>
 </head>
 <body>
-  <nav>
+  <a href="#main-content" class="skip-link">跳转到主要内容</a>
+  <nav aria-label="主导航">
     <ul>
       <li><a href="{{ "/" | relative_url }}">Home</a></li>
       <li><a href="{{ "/cv/" | relative_url }}">CV</a></li>
@@ -203,7 +249,7 @@
     </ul>
   </nav>
 
-  <main class="page-content">
+  <main class="page-content" id="main-content">
     {{ content }}
   </main>
 
@@ -212,6 +258,6 @@
   </footer>
 
   <!-- 隐藏入口 - 秘密花园 (Nexus) -->
-  <a href="{{ "/secret-garden/" | relative_url }}" class="secret-entrance" title="INITIATE_NEXUS"></a>
+  <a href="{{ "/secret-garden/" | relative_url }}" class="secret-entrance" aria-label="进入秘密花园" title="INITIATE_NEXUS"></a>
 </body>
 </html>

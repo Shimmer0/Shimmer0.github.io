@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0f0c29">
+  <title>工具箱 // Shimmer0</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Noto+Serif+SC:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-deep: #0f0c29;
+      --bg-mid: #302b63;
+      --bg-light: #24243e;
+      --accent-aurora: #a8edea;
+      --accent-purple: #d299c2;
+      --accent-pink: #fed6e3;
+      --accent-gold: #f5d7a8;
+      --text-primary: #f0f0f5;
+      --text-secondary: rgba(240, 240, 245, 0.7);
+      --text-muted: rgba(240, 240, 245, 0.5);
+      --font-serif: 'Cormorant Garamond', 'Noto Serif SC', serif;
+      --font-sans: 'Inter', -apple-system, sans-serif;
+      color-scheme: dark;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background: linear-gradient(135deg, var(--bg-deep) 0%, var(--bg-mid) 50%, var(--bg-light) 100%);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* 跳转链接 */
+    .skip-link {
+      position: absolute;
+      top: -100px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent-aurora);
+      color: var(--bg-deep);
+      padding: 10px 24px;
+      border-radius: 30px;
+      z-index: 10000;
+      transition: top 0.3s;
+      font-weight: 500;
+    }
+    .skip-link:focus {
+      top: 20px;
+    }
+
+    /* ===== 星空背景 ===== */
+    .stars-layer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .star {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      animation: twinkle var(--duration, 3s) ease-in-out infinite;
+      animation-delay: var(--delay, 0s);
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.3; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.2); }
+    }
+
+    /* ===== 极光效果 ===== */
+    .aurora {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .aurora-wave {
+      position: absolute;
+      width: 200%;
+      height: 60%;
+      top: -20%;
+      left: -50%;
+      background: linear-gradient(
+        180deg,
+        transparent 0%,
+        rgba(168, 237, 234, 0.03) 20%,
+        rgba(210, 153, 194, 0.05) 40%,
+        rgba(254, 214, 227, 0.03) 60%,
+        transparent 100%
+      );
+      animation: aurora-drift 20s ease-in-out infinite;
+      filter: blur(60px);
+    }
+
+    .aurora-wave:nth-child(2) {
+      animation-delay: -7s;
+      animation-duration: 25s;
+      top: -30%;
+    }
+
+    @keyframes aurora-drift {
+      0%, 100% { transform: translateX(-10%) rotate(-5deg); }
+      50% { transform: translateX(10%) rotate(5deg); }
+    }
+
+    /* ===== 减少动画 ===== */
+    @media (prefers-reduced-motion: reduce) {
+      .star,
+      .aurora-wave,
+      .glass-card,
+      .hero-title {
+        animation: none !important;
+      }
+      .glass-card {
+        transition: opacity 0.2s, transform 0.2s;
+      }
+    }
+
+    /* ===== 导航 ===== */
+    .nav-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 24px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+      background: linear-gradient(to bottom, rgba(15, 12, 41, 0.8) 0%, transparent 100%);
+    }
+
+    .nav-link {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.85rem;
+      letter-spacing: 0.5px;
+      transition: color 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-link:hover,
+    .nav-link:focus-visible {
+      color: var(--accent-aurora);
+    }
+
+    .nav-link:focus-visible {
+      outline: 2px solid var(--accent-aurora);
+      outline-offset: 4px;
+      border-radius: 4px;
+    }
+
+    /* ===== 主容器 ===== */
+    .main-container {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 140px 40px 80px;
+    }
+
+    /* ===== Hero ===== */
+    .hero-section {
+      text-align: center;
+      margin-bottom: 60px;
+      animation: fadeInUp 1s ease-out;
+    }
+
+    .hero-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, var(--accent-aurora), var(--accent-purple), var(--accent-pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      letter-spacing: 0.15em;
+      font-weight: 300;
+    }
+
+    .divider {
+      width: 60px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent-aurora), transparent);
+      margin: 32px auto;
+    }
+
+    /* ===== 玻璃卡片 ===== */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 24px;
+      padding: 40px;
+      margin-bottom: 32px;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      animation: fadeInUp 0.8s ease-out backwards;
+    }
+
+    .glass-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(168, 237, 234, 0.1);
+    }
+
+    .card-title {
+      font-family: var(--font-serif);
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 24px;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .card-title::before {
+      content: '';
+      width: 4px;
+      height: 24px;
+      background: linear-gradient(180deg, var(--accent-aurora), var(--accent-purple));
+      border-radius: 2px;
+    }
+
+    /* ===== 今日信息卡片 ===== */
+    .today-card {
+      background: linear-gradient(135deg, rgba(168, 237, 234, 0.1) 0%, rgba(210, 153, 194, 0.1) 100%);
+      border: 1px solid rgba(168, 237, 234, 0.2);
+      border-radius: 16px;
+      padding: 28px;
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .today-label {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+    }
+
+    .today-value {
+      font-size: 1.3rem;
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
+    /* ===== 设置区域 ===== */
+    .settings-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .settings-label {
+      color: var(--text-secondary);
+      min-width: 80px;
+      font-size: 0.9rem;
+    }
+
+    /* ===== 表单元素 ===== */
+    input[type="date"],
+    input[type="number"],
+    select {
+      padding: 14px 18px;
+      border: 1px solid rgba(168, 237, 234, 0.2);
+      border-radius: 12px;
+      font-size: 1rem;
+      background: rgba(0, 0, 0, 0.3);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    input[type="date"]:focus,
+    input[type="number"]:focus,
+    select:focus {
+      outline: none;
+      border-color: var(--accent-aurora);
+      box-shadow: 0 0 20px rgba(168, 237, 234, 0.15);
+    }
+
+    /* ===== 转换区域 ===== */
+    .converter-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .converter-box {
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 16px;
+      padding: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .converter-title {
+      font-size: 0.9rem;
+      color: var(--accent-aurora);
+      margin-bottom: 20px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+
+    /* ===== 按钮 ===== */
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      background: transparent;
+      border: 1px solid rgba(168, 237, 234, 0.3);
+      border-radius: 30px;
+      color: var(--accent-aurora);
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-top: 16px;
+    }
+
+    .action-btn:hover,
+    .action-btn:focus-visible {
+      background: rgba(168, 237, 234, 0.1);
+      border-color: var(--accent-aurora);
+      box-shadow: 0 0 20px rgba(168, 237, 234, 0.2);
+    }
+
+    .action-btn:focus-visible {
+      outline: 2px solid var(--accent-aurora);
+      outline-offset: 4px;
+    }
+
+    /* ===== 结果显示 ===== */
+    .result-box {
+      margin-top: 20px;
+      padding: 18px;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 12px;
+      border-left: 3px solid var(--accent-purple);
+      display: none;
+    }
+
+    .result-box.show {
+      display: block;
+      animation: fadeInUp 0.3s ease-out;
+    }
+
+    /* ===== 响应式 ===== */
+    @media (max-width: 768px) {
+      .main-container {
+        padding: 120px 20px 60px;
+      }
+      .nav-bar {
+        padding: 20px;
+      }
+      .glass-card {
+        padding: 28px;
+      }
+      .converter-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ===== 动画 ===== */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <a href="#main-content" class="skip-link">跳转到主要内容</a>
+
+  <!-- 星空背景 -->
+  <div class="stars-layer" id="stars" aria-hidden="true"></div>
+
+  <!-- 极光效果 -->
+  <div class="aurora" aria-hidden="true">
+    <div class="aurora-wave"></div>
+    <div class="aurora-wave"></div>
+  </div>
+
+  <!-- 导航栏 -->
+  <nav class="nav-bar" aria-label="页面导航">
+    <a href="{{ '/secret-garden/' | relative_url }}" class="nav-link" aria-label="返回秘密花园">
+      <span>←</span> Back to Nexus
+    </a>
+  </nav>
+
+  <main class="main-container" id="main-content">
+
+    <!-- Hero -->
+    <section class="hero-section">
+      <h1 class="hero-title">Tools Box</h1>
+      <p class="hero-subtitle">实用工具集合</p>
+      <div class="divider"></div>
+    </section>
+
+    <!-- 校历转换工具 -->
+    <article class="glass-card">
+      <h2 class="card-title">校历转换器</h2>
+
+      <!-- 学期设置 -->
+      <div class="settings-row">
+        <label class="settings-label" for="startDate">开学日期</label>
+        <input type="date" id="startDate" value="2026-02-24">
+      </div>
+
+      <!-- 今日信息 -->
+      <div class="today-card" aria-live="polite">
+        <div class="today-label">今日信息</div>
+        <div class="today-value" id="todayText">加载中...</div>
+      </div>
+
+      <!-- 转换区域 -->
+      <div class="converter-grid">
+
+        <!-- 日期转校历 -->
+        <div class="converter-box">
+          <div class="converter-title">日期 → 校历</div>
+          <div class="settings-row">
+            <label class="settings-label" for="dateToWeek">选择日期</label>
+            <input type="date" id="dateToWeek">
+          </div>
+          <button class="action-btn" id="btn-date-convert" type="button">
+            转换
+          </button>
+          <div class="result-box" id="dateResult" aria-live="polite"></div>
+        </div>
+
+        <!-- 校历转日期 -->
+        <div class="converter-box">
+          <div class="converter-title">校历 → 日期</div>
+          <div class="settings-row">
+            <label class="settings-label" for="weekNum">第几周</label>
+            <input type="number" id="weekNum" min="1" max="30" value="1" style="width: 80px;">
+          </div>
+          <div class="settings-row">
+            <label class="settings-label" for="weekDay">星期</label>
+            <select id="weekDay">
+              <option value="1">星期一</option>
+              <option value="2">星期二</option>
+              <option value="3">星期三</option>
+              <option value="4">星期四</option>
+              <option value="5">星期五</option>
+              <option value="6">星期六</option>
+              <option value="0">星期日</option>
+            </select>
+          </div>
+          <button class="action-btn" id="btn-week-convert" type="button">
+            转换
+          </button>
+          <div class="result-box" id="weekResult" aria-live="polite"></div>
+        </div>
+
+      </div>
+    </article>
+
+  </main>
+
+  <script>
+    // ===== 生成星星 =====
+    const starsLayer = document.getElementById('stars');
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (!prefersReducedMotion && starsLayer) {
+      for (let i = 0; i < 60; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        star.style.cssText = `
+          left: ${Math.random() * 100}%;
+          top: ${Math.random() * 100}%;
+          width: ${Math.random() * 2 + 1}px;
+          height: ${Math.random() * 2 + 1}px;
+          --duration: ${Math.random() * 3 + 2}s;
+          --delay: ${Math.random() * 3}s;
+        `;
+        starsLayer.appendChild(star);
+      }
+    }
+
+    // ===== 初始化 =====
+    document.addEventListener('DOMContentLoaded', function () {
+      const today = new Date();
+      document.getElementById('dateToWeek').valueAsDate = today;
+      updateTodayInfo();
+    });
+
+    // ===== 更新今日信息 =====
+    function updateTodayInfo() {
+      const startDate = new Date(document.getElementById('startDate').value);
+      const today = new Date();
+      const result = calculateWeekAndDay(startDate, today);
+
+      const weekDays = ['日', '一', '二', '三', '四', '五', '六'];
+      const todayStr = `${today.getFullYear()}年${today.getMonth() + 1}月${today.getDate()}日`;
+
+      if (result.week > 0) {
+        document.getElementById('todayText').textContent =
+          `${todayStr} · 校历第${result.week}周 星期${weekDays[result.day]}`;
+      } else {
+        document.getElementById('todayText').textContent = `${todayStr} · 尚未开学`;
+      }
+    }
+
+    // ===== 计算第几周星期几 =====
+    function calculateWeekAndDay(startDate, targetDate) {
+      const diffTime = targetDate - startDate;
+      const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+      if (diffDays < 0) {
+        return { week: 0, day: targetDate.getDay() };
+      }
+
+      const week = Math.floor(diffDays / 7) + 1;
+      const day = targetDate.getDay();
+
+      return { week, day };
+    }
+
+    // ===== 日期转校历 =====
+    function convertDateToWeek() {
+      const startDate = new Date(document.getElementById('startDate').value);
+      const targetDate = new Date(document.getElementById('dateToWeek').value);
+      const result = calculateWeekAndDay(startDate, targetDate);
+
+      const weekDays = ['日', '一', '二', '三', '四', '五', '六'];
+      const dateStr = `${targetDate.getFullYear()}年${targetDate.getMonth() + 1}月${targetDate.getDate()}日`;
+
+      const resultDiv = document.getElementById('dateResult');
+      if (result.week > 0) {
+        resultDiv.innerHTML = `${dateStr} 是 <strong>校历第${result.week}周 星期${weekDays[result.day]}</strong>`;
+      } else {
+        resultDiv.innerHTML = `${dateStr} 尚未开学`;
+      }
+      resultDiv.classList.add('show');
+    }
+
+    // ===== 校历转日期 =====
+    function convertWeekToDate() {
+      const startDate = new Date(document.getElementById('startDate').value);
+      const weekNum = parseInt(document.getElementById('weekNum').value);
+      const weekDay = parseInt(document.getElementById('weekDay').value);
+
+      const daysToAdd = (weekNum - 1) * 7 + (weekDay - startDate.getDay() + 7) % 7;
+      const targetDate = new Date(startDate);
+      targetDate.setDate(startDate.getDate() + daysToAdd);
+
+      const weekDays = ['日', '一', '二', '三', '四', '五', '六'];
+      const dateStr = `${targetDate.getFullYear()}年${targetDate.getMonth() + 1}月${targetDate.getDate()}日`;
+
+      const resultDiv = document.getElementById('weekResult');
+      resultDiv.innerHTML = `校历第${weekNum}周 星期${weekDays[weekDay]} 是 <strong>${dateStr}</strong>`;
+      resultDiv.classList.add('show');
+    }
+
+    // ===== 事件绑定 =====
+    document.getElementById('startDate').addEventListener('change', updateTodayInfo);
+
+    const btnDateConvert = document.getElementById('btn-date-convert');
+    const btnWeekConvert = document.getElementById('btn-week-convert');
+
+    btnDateConvert.addEventListener('click', convertDateToWeek);
+    btnDateConvert.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        convertDateToWeek();
+      }
+    });
+
+    btnWeekConvert.addEventListener('click', convertWeekToDate);
+    btnWeekConvert.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        convertWeekToDate();
+      }
+    });
+  </script>
+</body>
+</html>
