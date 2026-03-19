@@ -1,75 +1,220 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+本文件为 Claude Code (claude.ai/code) 提供项目指导。
 
-## Project Overview
+---
 
-This is a **0-cost personal academic website** project. The goal is to create and deploy a professional academic website completely free of charge, suitable for showcasing academic work, research, and professional profile.
+## 项目概述
 
-## Requirements
+这是一个 **0成本个人学术网站** 项目。目标是完全免费创建和部署一个专业的学术网站，适用于展示学术工作、研究和专业形象。
 
-- **Cost**: 0 cost (free hosting and deployment)
-- **Purpose**: Personal academic website (future use)
-- **Current State**: Blank slate - layout and functionality to be determined later
-- **Deployment**: Fully automated where possible
+---
 
-## First Principles Thinking
+## 核心需求
 
-**CRITICAL**: When working on this project, always apply first principles thinking:
+- **成本**：0成本（免费托管和部署）
+- **用途**：个人学术网站（用于会议期刊发表和学者身份注册）
+- **当前状态**：已完整部署，包含双重人格设计
+- **部署方式**：全自动化（通过GitHub Pages）
 
-1. **Question Assumptions**: Do not assume the user knows exactly what they want or how to achieve it
-2. **Understand Root Motivations**: Start from original requirements and problems
-3. **Stop and Discuss**: If motivation and goals are unclear, stop and discuss with the user
-4. **Optimize Paths**: If the goal is clear but the current path isn't the shortest, suggest better alternatives
+---
 
-## Technology Stack (Based on Best Practices Research)
+## 第一性原理思考
 
-### Hosting Platform: GitHub Pages
-- **Why**: Completely free, reliable, widely used in academia
-- **Supports**: Custom domains, SSL certificates, Jekyll static site generator
+**重要**：在这个项目中工作时，始终应用第一性原理思考：
 
-### Static Site Generator: Jekyll
-- **Why**: Native GitHub Pages support, no build time limits, large ecosystem
-- **Alternative considered**: Hugo (faster builds but requires external CI/CD)
+1. **质疑假设**：不要假设用户完全清楚自己想要什么或如何得到
+2. **理解根本动机**：从原始需求和问题出发
+3. **停下来讨论**：如果动机和目标不清晰，停下来与用户讨论
+4. **优化路径**：如果目标清晰但当前路径不是最短的，建议更好的方法
 
-### Theme: al-folio or Academic Pages
-- **Why**: Specifically designed for academics, professional appearance, responsive design
-- **Features**: Publications list, CV integration, blog support, easy customization
+---
 
-## Deployment Strategy
+## 技术栈
 
-1. **Repository Setup**: GitHub repository (user needs GitHub account)
-2. **Theme Installation**: Clone academic template
-3. **Configuration**: Minimal setup with placeholder content
-4. **Deployment**: Push to GitHub, enable GitHub Pages
-5. **URL**: `https://[username].github.io/[repo-name]` or custom domain
+### 托管平台：GitHub Pages
+- **原因**：完全免费、可靠、学术界广泛使用
+- **支持**：自定义域名、SSL证书、Jekyll静态网站生成器
 
-## Manual Steps Required from User
+### 静态网站生成器：Jekyll
+- **原因**：GitHub Pages原生支持，无构建时间限制，生态系统庞大
+- **替代方案考虑**：Hugo（构建更快但需要外部CI/CD）
 
-- Create GitHub account (if not exists)
-- Provide GitHub username/email for git configuration
-- Manual repository creation on GitHub (if preferred over command line)
+### 内容管理：数据驱动
+- **方式**：使用 `_data/` 文件夹存储YAML格式的内容
+- **优势**：无需编写代码即可更新内容
 
-## Future Enhancements (When User Ready)
+---
 
-- Custom domain setup (optional, domain purchase required)
-- Content population (bio, publications, CV, etc.)
-- Additional features (blog, contact form, analytics)
-- SEO optimization
+## 双重人格设计
 
-## Development Commands
+### 公开面具（学术网站）
+- **URL**: https://shimmer0.github.io/
+- **用途**: 专业学术展示
+- **页面**: Home, CV, Research, Publications, Contact
+- **风格**: 简洁、专业、学术
 
-Since this is a Jekyll site (to be set up), common commands will include:
+### 真实自我（秘密花园）
+- **URL**: https://shimmer0.github.io/secret-garden/
+- **入口**: 右下角隐藏的 ⬢ 符号（3%透明度）
+- **用途**: 个人创意空间
+- **风格**: 赛博朋克、交互式、酷炫
+- **特性**:
+  - Bento Box网格布局
+  - HUD能量条技能展示
+  - 4种主题切换
+  - 3D卡片倾斜效果
+  - 自定义霓虹光标
+  - 键盘彩蛋（输入"hello"触发彩虹模式）
+
+---
+
+## 项目结构
+
+```
+Shadow_Web/
+├── _data/                  # 内容数据文件（YAML格式）
+│   ├── contact.yml         # 联系方式
+│   ├── education.yml       # 教育背景
+│   ├── experience.yml      # 工作经历
+│   ├── research.yml        # 研究兴趣
+│   ├── publications.yml    # 发表作品
+│   └── awards.yml          # 获奖荣誉
+│
+├── _layouts/               # 页面模板
+│   ├── default.html        # 学术网站默认布局
+│   ├── home.html           # 首页布局
+│   ├── page.html           # 普通页面布局
+│   └── cyberpunk.html      # 秘密花园布局
+│
+├── _includes/              # 页面组件
+│
+├── assets/                 # 静态资源
+│   └── img/
+│       └── favicon.svg     # 网站图标
+│
+├── *.md                    # 页面内容文件
+│   ├── index.md            # 首页
+│   ├── cv.md               # CV页面
+│   ├── research.md         # 研究页面
+│   ├── publications.md     # 发表作品页面
+│   ├── contact.md          # 联系页面
+│   └── secret-garden.md    # 秘密花园页面
+│
+├── _config.yml             # Jekyll配置
+├── Gemfile                 # Ruby依赖
+└── README.md               # 项目说明文档
+```
+
+---
+
+## 开发命令
+
+### 本地开发（可选）
 
 ```bash
-# Install dependencies (requires Ruby and Bundler)
+# 安装依赖（需要Ruby和Bundler）
 bundle install
 
-# Run local development server
+# 运行本地开发服务器
 bundle exec jekyll serve
 
-# Build for production
+# 构建生产版本
 bundle exec jekyll build
 ```
 
-**Note**: Commands will be updated once the project structure is initialized.
+### Git操作
+
+```bash
+# 提交更改
+git add .
+git commit -m "更新内容"
+git push
+
+# 查看状态
+git status
+```
+
+---
+
+## 内容编辑指南
+
+### 如何更新内容？
+
+所有内容存储在 `_data/` 文件夹的YAML文件中。只需编辑这些文件即可更新网站。
+
+### 在线编辑（最简单）
+
+1. 访问 GitHub 仓库
+2. 进入 `_data` 文件夹
+3. 点击要编辑的 `.yml` 文件
+4. 点击铅笔图标 ✏️
+5. 编辑内容
+6. 点击 "Commit changes"
+7. 等待1-2分钟，网站自动更新
+
+### 重要提示
+
+1. **保持格式**：维护缩进和结构
+2. **不要删除破折号**：以 `-` 开头的行表示列表项
+3. **注释而非删除**：用 `#` 注释掉不需要的内容
+4. **测试更改**：保存后1-2分钟网站更新
+
+---
+
+## 用户需要手动完成的步骤
+
+- 创建GitHub账号（如果不存在）
+- 提供GitHub用户名/邮箱用于git配置
+- 在GitHub上手动创建仓库（如果更倾向于手动而非命令行）
+
+---
+
+## 未来增强（当用户准备好时）
+
+- 自定义域名设置（可选，需要购买域名）
+- 内容填充（个人简介、发表作品、CV等）
+- 附加功能（博客、联系表单、分析）
+- SEO优化
+
+---
+
+## 部署状态
+
+- ✅ GitHub仓库已创建
+- ✅ GitHub Pages已启用
+- ✅ HTTPS已强制启用
+- ✅ 网站已上线
+- ✅ 网站图标已添加
+- ✅ 数据驱动内容管理已实现
+- ✅ 秘密花园已完成视觉重构
+
+---
+
+## 重要文件说明
+
+| 文件 | 用途 | 编辑频率 |
+|------|------|----------|
+| `_data/*.yml` | 存储所有内容数据 | 经常 |
+| `_config.yml` | Jekyll全局配置 | 很少 |
+| `_layouts/*.html` | 页面模板 | 很少 |
+| `README.md` | 项目说明文档 | 偶尔 |
+| `CLAUDE.md` | Claude Code指导文件 | 很少 |
+
+---
+
+## 注意事项
+
+1. **不要**重复通用的开发实践（如"提供有用的错误信息"）
+2. **不要**列出可以轻易发现的每个组件或文件结构
+3. **不要**包含通用的开发实践
+4. **务必**遵循第一性原理思考方法
+5. **务必**在不确定时与用户讨论
+
+---
+
+## 当前维护者
+
+- GitHub用户名: Shimmer0
+- 邮箱: zy-xu23@mails.tsinghua.edu.cn
+- 网站: https://shimmer0.github.io/
