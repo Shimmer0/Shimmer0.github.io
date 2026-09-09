@@ -19,7 +19,7 @@ export default function Home() {
    <aside className="profile">
     <img className="portrait" src="/portrait.jpg" width="176" height="176" alt="Zhouyuan Xu · 许洲沅"/>
     <div className="profile-name"><h1>Zhouyuan Xu</h1><p className="chinese-name">许洲沅</p></div>
-    <p className="profile-role">{t.role}</p>
+    <p className="profile-role">{t.role}</p><p className="profile-future">{t.futureRole}</p>
     <p className="affiliation">{t.department}<br/><a href="https://www.tsinghua.edu.cn/" target="_blank" rel="noreferrer">{t.school}<ArrowUpRight size={14}/></a></p>
     <p className="location"><MapPin size={15}/>{t.location}</p>
     <div className="profile-divider"/>
@@ -37,7 +37,7 @@ export default function Home() {
     </section>
     <section className="panel" id="projects"><div className="section-heading"><h2>{t.projects}</h2><span className="section-number">03</span></div>{t.projectItems.map((p)=><article className="list-item" key={p.title}><div className="item-topline"><h3>{p.title}</h3><time>{p.date}</time></div><p className="item-subtitle">{p.subtitle}</p><p className="item-description">{p.description}</p></article>)}</section>
     <section className="panel" id="awards"><div className="section-heading"><h2>{t.awards}</h2><span className="section-number">04</span></div><div className="award-list">{t.awardItems.map(a=><div className="award-row" key={a.title}><span className="award-dot"/><div><h3>{a.title}</h3><p>{a.subtitle}</p></div><time>{a.date}</time></div>)}</div></section>
-    <section className="panel" id="education"><div className="section-heading"><h2>{t.education}</h2><span className="section-number">05</span></div><div className="education-item"><div className="education-icon"><GraduationCap size={24}/></div><div><h3>{t.school}</h3><p>{t.degree}</p></div><time>{t.educationDate}</time></div><p className="advisor">{t.advisor}</p></section>
+    <section className="panel" id="education"><div className="section-heading"><h2>{t.education}</h2><span className="section-number">05</span></div><div className="education-item"><div className="education-icon"><GraduationCap size={24}/></div><div><h3>{t.school}</h3><p>{t.degree}</p></div><time>{t.educationDate}</time></div><p className="advisor">{t.advisor}</p><div className="education-item future-education"><div className="education-icon"><GraduationCap size={24}/></div><div><h3>{t.school}</h3><p>{t.phdDegree}</p></div><time>{t.phdDate}</time></div><p className="advisor">{t.phdAdvisor}</p></section>
     <footer><span>© 2026 Zhouyuan Xu</span><span>{t.updated}</span></footer>
    </main>
   </div>

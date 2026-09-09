@@ -101,3 +101,7 @@ footer { display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; 
 .paper-links {display:flex;gap:20px;flex-wrap:wrap;}
 .paper-bottom .text-link {margin-top:0;}
 @media(max-width:760px){.portrait{width:88px;height:88px;margin:0;grid-row:1/4;border-radius:18px;}.github-contact{margin-top:9px;}}
+
+.profile-future {font-size:14px;color:var(--primary);margin-top:3px;}
+.future-education {margin-top:23px;padding-top:23px;border-top:1px solid var(--border);}
+@media(max-width:760px){.profile-future{grid-column:2;}}
