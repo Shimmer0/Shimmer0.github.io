@@ -1,12 +1,12 @@
-title: Shimmer0's Academic Website
+title: Zhouyuan Xu · 许洲沅
 email: zy-xu23@mails.tsinghua.edu.cn
-description: Personal academic website for Shimmer0 - Researcher at Tsinghua University
+description: Zhouyuan Xu, undergraduate researcher at Tsinghua University. Multimodal agents and structural engineering.
 baseurl: ""
 url: "https://shimmer0.github.io"
 
 # Author information
 author:
-  name: Shimmer0
+  name: Zhouyuan Xu
   email: zy-xu23@mails.tsinghua.edu.cn
 
 # Build settings
@@ -16,6 +16,7 @@ plugins:
 
 # Exclude from processing
 exclude:
+  - site
   - Gemfile
   - Gemfile.lock
   - node_modules
@@ -25,3 +26,7 @@ exclude:
   - vendor/ruby/
   - README.md
   - CLAUDE.md
+
+# Static homepage bundles generated from site/.
+include:
+  - _next
